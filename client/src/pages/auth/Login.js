@@ -73,7 +73,7 @@ const Login = () => {
               },
             });
           })
-          .catch();
+          .catch((err) => console.log(err));
         navigate("/");
       })
       .catch((err) => {

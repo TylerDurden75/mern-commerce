@@ -13,7 +13,7 @@ exports.createOrUpdateUser = async (req, res) => {
     console.log(user);
     res.json(user);
   } else {
-    const newUser = await User({
+    const newUser = await new User({
       email,
       name: email.split("@")[0],
       picture,
@@ -24,5 +24,8 @@ exports.createOrUpdateUser = async (req, res) => {
 };
 
 exports.currentUser = async (req, res) => {
-  User.find({ email });
+  User.findOne({ email: req.user.email }).exec((err, user) => {
+    if (err) throw new Error(err);
+    res.json(user);
+  });
 };

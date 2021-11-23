@@ -12,7 +12,7 @@ const LoadingToRedirect = () => {
     count === 0 && navigate("/");
 
     return () => clearInterval(interval);
-  }, [count]);
+  }, [count, navigate]);
 
   return (
     <div className="container p-5 text-center">

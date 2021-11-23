@@ -10,7 +10,6 @@ import Home from "./pages/Home";
 import Header from "./components/nav/Header";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
-import History from "./pages/user/History";
 import UserRoute from "./components/routes/UserRoute";
 
 import { auth } from "./firebase";
@@ -57,14 +56,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/register/complete" element={<RegisterComplete />} />
         <Route path="/forgot/password" element={<ForgotPassword />} />
-        <Route
-          path="/user/history"
-          element={
-            <UserRoute>
-              <History />
-            </UserRoute>
-          }
-        />
+        <Route path="/user/*" element={<UserRoute />} />
       </Routes>
     </React.Fragment>
   );

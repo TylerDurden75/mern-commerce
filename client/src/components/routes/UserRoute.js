@@ -1,8 +1,9 @@
 import React from "react";
-import { Navigate, Routes, useLocation } from "react-router";
+import { Routes } from "react-router";
 import { useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 import LoadingToRedirect from "./LoadingToRedirect";
+import History from "../../pages/user/History";
 
 const UserRoute = ({ children, ...rest }) => {
   // let location = useLocation();
@@ -10,7 +11,12 @@ const UserRoute = ({ children, ...rest }) => {
 
   return user && user.token ? (
     <Routes>
-      <Route {...rest} render={() => children} />
+      <Route
+        path="history"
+        {...rest}
+        render={() => children}
+        element={<History />}
+      />
     </Routes>
   ) : (
     <LoadingToRedirect />

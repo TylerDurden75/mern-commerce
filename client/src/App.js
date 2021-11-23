@@ -7,10 +7,12 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Home from "./pages/Home";
-import Header from "./components/nav/Header";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+
+import Header from "./components/nav/Header";
 import UserRoute from "./components/routes/UserRoute";
+import AdminRoute from "./components/routes/AdminRoute";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -57,6 +59,7 @@ const App = () => {
         <Route path="/register/complete" element={<RegisterComplete />} />
         <Route path="/forgot/password" element={<ForgotPassword />} />
         <Route path="/user/*" element={<UserRoute />} />
+        <Route path="/admin/*" element={<AdminRoute />} />
       </Routes>
     </React.Fragment>
   );

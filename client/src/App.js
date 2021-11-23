@@ -48,7 +48,7 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <React.Fragment>
       <Header />
       <ToastContainer />
       <Routes>
@@ -57,9 +57,16 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/register/complete" element={<RegisterComplete />} />
         <Route path="/forgot/password" element={<ForgotPassword />} />
-        <Route path="/user/history" element={<History />} />
+        <Route
+          path="/user/history"
+          element={
+            <UserRoute>
+              <History />
+            </UserRoute>
+          }
+        />
       </Routes>
-    </>
+    </React.Fragment>
   );
 };
 

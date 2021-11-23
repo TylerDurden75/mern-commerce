@@ -1,14 +1,25 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
+import { Navigate, Routes, useLocation } from "react-router";
 import { useSelector } from "react-redux";
+import { Route } from "react-router-dom";
+import LoadingToRedirect from "./LoadingToRedirect";
 
 const UserRoute = ({ children, ...rest }) => {
+  // let location = useLocation();
   const { user } = useSelector((state) => ({ ...state }));
 
   return user && user.token ? (
-    <Route {...rest} render={() => children} />
+    <Routes>
+      <Route {...rest} render={() => children} />
+    </Routes>
   ) : (
-    <h1 className="text-danger">Loading...</h1>
+    <LoadingToRedirect />
   );
 };
 export default UserRoute;
+
+// if (!user) {
+//   return <Navigate to="/register" state={{ from: location }} {...rest} />;
+// }
+
+// return children;

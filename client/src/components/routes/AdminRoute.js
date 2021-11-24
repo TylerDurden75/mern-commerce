@@ -8,6 +8,7 @@ import { currentAdmin } from "../../functions/auth";
 import AdminDashboard from "../../pages/admin/AdminDashboard";
 import CategoryCreate from "../../pages/admin/category/CategoryCreate";
 import CategoryUpdate from "./../../pages/admin/category/CategoryUpdate";
+import SubCreate from "../../pages/admin/sub/SubCreate";
 
 const AdminRoute = ({ children, ...rest }) => {
   // let location = useLocation();
@@ -33,6 +34,7 @@ const AdminRoute = ({ children, ...rest }) => {
       <Route path="dashboard" element={<AdminDashboard />} />
       <Route path="category" element={<CategoryCreate />} />
       <Route path="category/:slug" element={<CategoryUpdate />} />
+      <Route path="sub" element={<SubCreate />} />
     </Routes>
   ) : (
     <LoadingToRedirect />

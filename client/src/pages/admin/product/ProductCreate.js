@@ -5,7 +5,7 @@ import { createProduct } from "../../../functions/product";
 import AdminNav from "../../../components/nav/AdminNav";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 
-import { getCategories } from "../../../functions/category";
+import { getCategories, getCategorySubs } from "../../../functions/category";
 
 const initialState = {
   title: "Macbook Pro",
@@ -25,6 +25,7 @@ const initialState = {
 
 const ProductCreate = () => {
   const [values, setValues] = useState(initialState);
+  const [subOptions, setSubOptions] = useState([]);
 
   //Redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -56,6 +57,15 @@ const ProductCreate = () => {
     // console.log(e.target.name, "----", e.target.value);
   };
 
+  const handleCategoryChange = (e) => {
+    e.preventDefault();
+    setValues({ ...values, category: e.target.value });
+    getCategorySubs(e.target.value).then((res) => {
+      //   console.log("Sub Options click", res);
+      setSubOptions(res.data);
+    });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -68,6 +78,7 @@ const ProductCreate = () => {
           <ProductCreateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
+            handleCategoryChange={handleCategoryChange}
             values={values}
           />
         </div>

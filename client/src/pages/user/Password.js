@@ -52,7 +52,7 @@ const Password = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2"></div>
+        <div className="col-md-2 border-right"></div>
         <div className="col">
           {loading ? (
             <h4 className="text-danger">Loading...</h4>

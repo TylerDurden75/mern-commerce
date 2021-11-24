@@ -5,7 +5,7 @@ const AdminDashboard = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-md-2 border-right">
           <AdminNav />
         </div>
         <div className="col">Admin dashboard page</div>

@@ -4,7 +4,7 @@ import React from "react";
 const Wishlist = () => (
   <div className="container-fluid">
     <div className="row">
-      <div className="col-md-2"></div>
+      <div className="col-md-2 border-right"></div>
       <div className="col">user Wishlist page</div>
     </div>
   </div>

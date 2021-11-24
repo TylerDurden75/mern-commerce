@@ -9,6 +9,7 @@ import {
 } from "../../../functions/category";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AdminNav from "../../../components/nav/AdminNav";
+import CategoryForm from "../../../components/forms/CategoryForm";
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -61,25 +62,6 @@ const CategoryCreate = () => {
     }
   };
 
-  const categoryForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Name</label>
-        <input
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          type="text"
-          className="form-control"
-          minLength="2"
-          autoFocus
-          required
-        />
-        <br />
-        <button className="btn btn-outline-primary">Save</button>
-      </div>
-    </form>
-  );
-
   return (
     <div className="container-fluid">
       <div className="row">
@@ -92,7 +74,11 @@ const CategoryCreate = () => {
           ) : (
             <h4>Create category</h4>
           )}
-          {categoryForm()}
+          <CategoryForm
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+          />
           <hr />
           {categories.map((c) => (
             <div className="alert alert-primary" key={c._id}>

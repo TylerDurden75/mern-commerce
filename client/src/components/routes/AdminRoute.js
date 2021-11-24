@@ -6,7 +6,6 @@ import LoadingToRedirect from "./LoadingToRedirect";
 
 import { currentAdmin } from "../../functions/auth";
 import AdminDashboard from "../../pages/admin/AdminDashboard";
-import AdminNav from "../nav/AdminNav";
 import CategoryCreate from "../../pages/admin/category/CategoryCreate";
 import CategoryUpdate from "./../../pages/admin/category/CategoryUpdate";
 

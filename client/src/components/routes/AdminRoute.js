@@ -6,6 +6,8 @@ import LoadingToRedirect from "./LoadingToRedirect";
 
 import { currentAdmin } from "../../functions/auth";
 import AdminDashboard from "../../pages/admin/AdminDashboard";
+import AdminNav from "../nav/AdminNav";
+import CategoryCreate from "../../pages/admin/category/CategoryCreate";
 
 const AdminRoute = ({ children, ...rest }) => {
   // let location = useLocation();
@@ -28,8 +30,9 @@ const AdminRoute = ({ children, ...rest }) => {
 
   return ok ? (
     <Routes>
-      <Route {...rest} render={() => children}>
-        <Route path="dashboard/*" element={<AdminDashboard />} />
+      <Route path="/*" {...rest} render={() => children} element={<AdminNav />}>
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="category" element={<CategoryCreate />} />
       </Route>
     </Routes>
   ) : (

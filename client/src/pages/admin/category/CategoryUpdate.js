@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { getCategory, updateCategory } from "../../../functions/category";
 import { useParams, useNavigate } from "react-router-dom";
+import AdminNav from "../../../components/nav/AdminNav";
 
 const CategoryUpdate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -61,7 +62,9 @@ const CategoryUpdate = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2"></div>
+        <div className="col-md-2">
+          <AdminNav />
+        </div>
         <div className="col">
           {loading ? (
             <h4 className="text-danger">Loading...</h4>

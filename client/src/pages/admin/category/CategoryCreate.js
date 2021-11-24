@@ -8,6 +8,7 @@ import {
   removeCategory,
 } from "../../../functions/category";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import AdminNav from "../../../components/nav/AdminNav";
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -82,7 +83,9 @@ const CategoryCreate = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2"></div>
+        <div className="col-md-2">
+          <AdminNav />
+        </div>
         <div className="col">
           {loading ? (
             <h4 className="text-danger">Loading...</h4>

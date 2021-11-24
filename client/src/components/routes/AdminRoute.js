@@ -31,11 +31,9 @@ const AdminRoute = ({ children, ...rest }) => {
 
   return ok ? (
     <Routes>
-      <Route path="/*" {...rest} render={() => children} element={<AdminNav />}>
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="category" element={<CategoryCreate />} />
-        <Route path="category/:slug" element={<CategoryUpdate />} />
-      </Route>
+      <Route path="dashboard" element={<AdminDashboard />} />
+      <Route path="category" element={<CategoryCreate />} />
+      <Route path="category/:slug" element={<CategoryUpdate />} />
     </Routes>
   ) : (
     <LoadingToRedirect />

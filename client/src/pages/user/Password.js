@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getAuth, updatePassword } from "firebase/auth";
 import { toast } from "react-toastify";
+// import UserNav from "../../components/nav/UserNav";
 
 const Password = () => {
   const [password, setPassword] = useState("");

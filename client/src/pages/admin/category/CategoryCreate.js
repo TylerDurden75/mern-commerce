@@ -10,6 +10,7 @@ import {
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AdminNav from "../../../components/nav/AdminNav";
 import CategoryForm from "../../../components/forms/CategoryForm";
+import LocalSearch from "../../../components/forms/LocalSearch";
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -20,7 +21,6 @@ const CategoryCreate = () => {
   // searching filter
 
   /* step 1 */
-
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
@@ -68,13 +68,12 @@ const CategoryCreate = () => {
 
   /* step 3 */
 
-  const handleSearchChange = (e) => {
-    e.preventDefault();
-    setKeyword(e.target.value.toLowerCase());
-  };
+  // const handleSearchChange = (e) => {
+  //   e.preventDefault();
+  //   setKeyword(e.target.value.toLowerCase());
+  // };
 
   /* step 4 */
-
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
@@ -95,14 +94,8 @@ const CategoryCreate = () => {
             setName={setName}
           />
           {/* step 2 */}
-          <input
-            onChange={handleSearchChange}
-            value={keyword}
-            type="search"
-            placeholder="Filter"
-            className="form-control mb-4"
-          />
-          <hr />
+          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+
           {/* step 5 */}
           {categories.filter(searched(keyword)).map((c) => (
             <div className="alert alert-primary" key={c._id}>

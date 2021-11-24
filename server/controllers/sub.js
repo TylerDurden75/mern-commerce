@@ -3,8 +3,8 @@ const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
-    const { name } = req.body;
-    const sub = await new Sub({ name, slug: slugify(name) }).save();
+    const { name, parent } = req.body;
+    const sub = await new Sub({ name, parent, slug: slugify(name) }).save();
     res.json(sub);
   } catch (err) {
     res.status(400).send("Create Sub failed");

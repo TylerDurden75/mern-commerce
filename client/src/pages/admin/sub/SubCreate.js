@@ -18,16 +18,20 @@ const SubCreate = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
+  const [subs, setSubs] = useState([]);
   // searching filter
   /* step 1 */
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     showCategories();
+    showSubs();
   }, []);
 
   const showCategories = () =>
     getCategories().then((c) => setCategories(c.data));
+
+  const showSubs = () => getSubs().then((c) => setSubs(c.data));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,6 +42,7 @@ const SubCreate = () => {
         setLoading(false);
         setName("");
         toast.success(`"${res.data.name}" is created`);
+        showSubs();
       })
       .catch((error) => {
         console.log(error);
@@ -53,6 +58,7 @@ const SubCreate = () => {
         .then((res) => {
           setLoading(false);
           toast.success(`${res.data.name} deleted`);
+          showSubs();
         })
         .catch((err) => {
           if (err.response.status === 400) {
@@ -62,13 +68,6 @@ const SubCreate = () => {
         });
     }
   };
-
-  /* step 3 */
-
-  // const handleSearchChange = (e) => {
-  //   e.preventDefault();
-  //   setKeyword(e.target.value.toLowerCase());
-  // };
 
   /* step 4 */
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
@@ -112,6 +111,22 @@ const SubCreate = () => {
           <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
           {/* step 5 */}
+          {subs.filter(searched(keyword)).map((s) => (
+            <div className="alert alert-primary" key={s._id}>
+              {s.name}{" "}
+              <span
+                onClick={() => handleRemove(s.slug)}
+                className="btn btn-sm float-right"
+              >
+                <DeleteOutlined className="text-danger" />
+              </span>
+              <Link to={`/admin/sub/${s.slug}`}>
+                <span className="btn btn-sm float-right">
+                  <EditOutlined className="text-success" />
+                </span>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>

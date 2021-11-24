@@ -6,19 +6,19 @@ import { createProduct } from "../../../functions/product";
 import AdminNav from "../../../components/nav/AdminNav";
 
 const initialState = {
-  title: "",
-  description: "",
-  price: "",
+  title: "Macbook Pro",
+  description: "A must have from Apple",
+  price: "4500",
   categories: [],
   category: "",
   subs: [],
-  shipping: "",
-  quantity: "",
+  shipping: "Yes",
+  quantity: "50",
   images: [],
   brands: ["Apple", "Microsoft", "Dell", "HP", "Samsung", "Lenovo", "ASUS"],
   colors: ["Black", "Brown", "Silver", "White", "Blue"],
-  color: "",
-  brand: "",
+  color: "White",
+  brand: "Apple",
 };
 
 const ProductCreate = () => {
@@ -49,6 +49,8 @@ const ProductCreate = () => {
     createProduct(values, user.token)
       .then((res) => {
         console.log(res);
+        window.alert(`"${res.data.title}" is created`);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);

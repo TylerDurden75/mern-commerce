@@ -7,17 +7,17 @@ const UserNav = () => {
       <nav>
         <ul className="nav flex-column">
           <li className="nav-item">
-            <Link to="history" className="nav-link">
+            <Link to="/user/dashboard" className="nav-link">
               History
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="password" className="nav-link">
+            <Link to="/user/password" className="nav-link">
               Password
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="wishlist" className="nav-link">
+            <Link to="/user/wishlist" className="nav-link">
               Whislist
             </Link>
           </li>

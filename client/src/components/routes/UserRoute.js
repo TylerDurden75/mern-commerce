@@ -15,16 +15,9 @@ const UserRoute = ({ children, ...rest }) => {
 
   return user && user.token ? (
     <Routes>
-      <Route
-        path="dashboard/*"
-        {...rest}
-        render={() => children}
-        element={<UserNav />}
-      >
-        <Route path="history" element={<History />} />
-        <Route path="password" element={<Password />} />
-        <Route path="wishlist" element={<Wishlist />} />
-      </Route>
+      <Route path="dashboard" element={<History />} />
+      <Route path="password" element={<Password />} />
+      <Route path="wishlist" element={<Wishlist />} />
     </Routes>
   ) : (
     <LoadingToRedirect />

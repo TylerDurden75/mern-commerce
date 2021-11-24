@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getAuth, updatePassword } from "firebase/auth";
 import { toast } from "react-toastify";
-// import UserNav from "../../components/nav/UserNav";
+import UserNav from "../../components/nav/UserNav";
 
 const Password = () => {
   const [password, setPassword] = useState("");
@@ -52,7 +52,9 @@ const Password = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2 border-right"></div>
+        <div className="col-md-2 border-right">
+          <UserNav />
+        </div>
         <div className="col">
           {loading ? (
             <h4 className="text-danger">Loading...</h4>

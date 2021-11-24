@@ -39,7 +39,7 @@ const ForgotPassword = () => {
       });
   };
 
-  const handleChange = () => {};
+  // const handleChange = () => {};
 
   return (
     <div className="container col-md-6 offset-md-3 p-5">

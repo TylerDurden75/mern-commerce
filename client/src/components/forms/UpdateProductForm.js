@@ -36,6 +36,7 @@ const UpdateProductForm = ({
           type="text"
           name="title"
           className="form-control"
+          style={{ cursor: "pointer" }}
         />
       </div>
       <div className="form-group">
@@ -46,6 +47,7 @@ const UpdateProductForm = ({
           type="text"
           name="description"
           className="form-control"
+          style={{ cursor: "pointer" }}
         />
       </div>
       <div className="form-group">
@@ -57,16 +59,18 @@ const UpdateProductForm = ({
           name="price"
           className="form-control"
           min="0"
+          style={{ cursor: "pointer" }}
         />
       </div>
       <div className="form-group">
         <label>Shipping</label>
         <select
+          value={shipping === "Yes" ? "Yes" : "No"}
           onChange={handleChange}
           name="shipping"
           className="form-control"
+          style={{ cursor: "pointer" }}
         >
-          <option>Please Select</option>
           <option value="No">No</option>
           <option value="Yes">Yes</option>
         </select>
@@ -80,12 +84,18 @@ const UpdateProductForm = ({
           name="quantity"
           className="form-control"
           min="0"
+          style={{ cursor: "pointer" }}
         />
       </div>
       <div className="form-group">
         <label>Color</label>
-        <select onChange={handleChange} name="color" className="form-control">
-          <option>Please Select</option>
+        <select
+          value={color}
+          onChange={handleChange}
+          name="color"
+          className="form-control"
+          style={{ cursor: "pointer" }}
+        >
           {colors.map((col) => (
             <option key={col} value={col}>
               {col}
@@ -95,8 +105,13 @@ const UpdateProductForm = ({
       </div>
       <div className="form-group">
         <label>Brand</label>
-        <select onChange={handleChange} name="brand" className="form-control">
-          <option>Please Select</option>
+        <select
+          value={brand}
+          onChange={handleChange}
+          name="brand"
+          className="form-control"
+          style={{ cursor: "pointer" }}
+        >
           {brands.map((b) => (
             <option key={b} value={b}>
               {b}

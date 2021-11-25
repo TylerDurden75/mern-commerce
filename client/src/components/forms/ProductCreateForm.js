@@ -68,6 +68,7 @@ const ProductCreateForm = ({
           onChange={handleChange}
           name="shipping"
           className="form-control"
+          style={{ cursor: "pointer" }}
         >
           <option>Please Select</option>
           <option value="No">No</option>
@@ -87,7 +88,12 @@ const ProductCreateForm = ({
       </div>
       <div className="form-group">
         <label>Color</label>
-        <select onChange={handleChange} name="color" className="form-control">
+        <select
+          onChange={handleChange}
+          name="color"
+          className="form-control"
+          style={{ cursor: "pointer" }}
+        >
           <option>Please Select</option>
           {colors.map((col) => (
             <option key={col} value={col}>
@@ -98,7 +104,12 @@ const ProductCreateForm = ({
       </div>
       <div className="form-group">
         <label>Brand</label>
-        <select onChange={handleChange} name="brand" className="form-control">
+        <select
+          onChange={handleChange}
+          name="brand"
+          className="form-control"
+          style={{ cursor: "pointer" }}
+        >
           <option>Please Select</option>
           {brands.map((b) => (
             <option key={b} value={b}>
@@ -114,6 +125,7 @@ const ProductCreateForm = ({
           name="category"
           className="form-control"
           onChange={handleCategoryChange}
+          style={{ cursor: "pointer" }}
         >
           <option>Please select</option>
           {categories.length > 0 &&

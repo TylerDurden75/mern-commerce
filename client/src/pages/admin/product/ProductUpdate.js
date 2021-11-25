@@ -16,7 +16,6 @@ const initialState = {
   title: "",
   description: "",
   price: "",
-  categories: [],
   category: "",
   subs: [],
   shipping: "",
@@ -31,6 +30,8 @@ const initialState = {
 const ProductUpdate = () => {
   //state
   const [values, setValues] = useState(initialState);
+  const [subOptions, setSubOptions] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   //Redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -38,6 +39,7 @@ const ProductUpdate = () => {
 
   useEffect(() => {
     showProduct();
+    showCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -50,6 +52,13 @@ const ProductUpdate = () => {
       .catch();
   };
 
+  const showCategories = () => {
+    getCategories().then((c) => {
+      console.log("Get Cate in udpate", c.data);
+      setCategories(c.data);
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -57,6 +66,15 @@ const ProductUpdate = () => {
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     // console.log(e.target.name, "----", e.target.value);
+  };
+
+  const handleCategoryChange = (e) => {
+    e.preventDefault();
+    setValues({ ...values, subs: [], category: e.target.value });
+    getCategorySubs(e.target.value).then((res) => {
+      //   console.log("Sub Options click", res);
+      setSubOptions(res.data);
+    });
   };
 
   return (
@@ -70,8 +88,11 @@ const ProductUpdate = () => {
           <ProductUpdateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
+            handleCategoryChange={handleCategoryChange}
             setValues={setValues}
             values={values}
+            categories={categories}
+            subOptions={subOptions}
           />
           <hr />
         </div>

@@ -32,6 +32,7 @@ const ProductUpdate = () => {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [arrayOfSubs, setArrayOfSubIds] = useState([]);
 
   //Redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -44,17 +45,23 @@ const ProductUpdate = () => {
   }, []);
 
   const showProduct = () => {
-    getProduct(slug)
-      .then((p) => {
-        // console.log("single product", p);
-        setValues({ ...values, ...p.data });
-      })
-      .catch();
+    getProduct(slug).then((p) => {
+      setValues({ ...values, ...p.data });
+      getCategorySubs(p.data.category._id).then((res) => {
+        setSubOptions(res.data); //on first load show default subs
+      });
+      // prepare sub[id] => antd design select
+      let arr = [];
+      p.data.subs.map((s) => {
+        return arr.push(s._id);
+      });
+      console.log("ARR", arr);
+      setArrayOfSubIds((prev) => arr); //require for antd design select to word
+    });
   };
 
   const showCategories = () => {
     getCategories().then((c) => {
-      console.log("Get Cate in udpate", c.data);
       setCategories(c.data);
     });
   };
@@ -93,6 +100,8 @@ const ProductUpdate = () => {
             values={values}
             categories={categories}
             subOptions={subOptions}
+            arrayOfSubs={arrayOfSubs}
+            setArrayOfSubIds={setArrayOfSubIds}
           />
           <hr />
         </div>

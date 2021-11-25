@@ -22,7 +22,7 @@ mongoose
 
 //middleware
 app.use(morgan("dev"));
-app.use(bodyParser.json({ limit: "10kb" }));
+app.use(bodyParser.json({ limit: "5mb" }));
 app.use(cors());
 
 //routes middleware

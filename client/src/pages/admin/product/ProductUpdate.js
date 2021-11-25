@@ -10,6 +10,7 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 
 import AdminNav from "../../../components/nav/AdminNav";
 import FileUpload from "../../../components/forms/FileUpload";
+import UpdateProductForm from "../../../components/forms/UpdateProductForm";
 
 const initialState = {
   title: "",
@@ -49,6 +50,15 @@ const ProductUpdate = () => {
       .catch();
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+    // console.log(e.target.name, "----", e.target.value);
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -57,7 +67,12 @@ const ProductUpdate = () => {
         </div>
         <div className="col-md-10">
           <h4>Product Update</h4>
-          {JSON.stringify(values)}
+          <UpdateProductForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            setValues={setValues}
+            values={values}
+          />
           <hr />
         </div>
       </div>

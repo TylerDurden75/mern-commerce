@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -14,6 +15,7 @@ import FileUpload from "../../../components/forms/FileUpload";
 const ProductUpdate = () => {
   //Redux
   const { user } = useSelector((state) => ({ ...state }));
+  let { slug } = useParams();
 
   return (
     <div className="container-fluid">
@@ -23,6 +25,7 @@ const ProductUpdate = () => {
         </div>
         <div className="col-md-10">
           <h4>Product Update</h4>
+          {JSON.stringify(slug)}
           <hr />
         </div>
       </div>

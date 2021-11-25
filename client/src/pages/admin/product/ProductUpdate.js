@@ -10,7 +10,7 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 
 import AdminNav from "../../../components/nav/AdminNav";
 import FileUpload from "../../../components/forms/FileUpload";
-import UpdateProductForm from "../../../components/forms/UpdateProductForm";
+import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 
 const initialState = {
   title: "",
@@ -67,7 +67,7 @@ const ProductUpdate = () => {
         </div>
         <div className="col-md-10">
           <h4>Product Update</h4>
-          <UpdateProductForm
+          <ProductUpdateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             setValues={setValues}

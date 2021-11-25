@@ -3,7 +3,7 @@ import { Select } from "antd";
 
 const { Option } = Select;
 
-const UpdateProductForm = ({
+const ProductUpdateForm = ({
   handleSubmit,
   handleChange,
   setValues,
@@ -126,4 +126,4 @@ const UpdateProductForm = ({
   );
 };
 
-export default UpdateProductForm;
+export default ProductUpdateForm;

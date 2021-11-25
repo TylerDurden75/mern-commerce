@@ -26,6 +26,7 @@ const initialState = {
 const ProductCreate = () => {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
+  const [showSub, setShowSub] = useState(false);
 
   //Redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -79,7 +80,10 @@ const ProductCreate = () => {
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             handleCategoryChange={handleCategoryChange}
+            setValues={setValues}
             values={values}
+            subOptions={subOptions}
+            showSub={showSub}
           />
         </div>
       </div>

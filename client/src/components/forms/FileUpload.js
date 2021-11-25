@@ -2,7 +2,7 @@ import React from "react";
 
 const FileUpload = () => {
   const fileUploadAndResize = (e) => {
-    console.log(e.target.files);
+    // console.log(e.target.files);
   };
 
   return (

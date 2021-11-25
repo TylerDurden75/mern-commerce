@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+
+import { toast } from "react-toastify";
+import { LoadingOutlined } from "@ant-design/icons";
+
 import { createProduct } from "../../../functions/product";
+import { getCategories, getCategorySubs } from "../../../functions/category";
 
 import AdminNav from "../../../components/nav/AdminNav";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import FileUpload from "../../../components/forms/FileUpload";
-
-import { getCategories, getCategorySubs } from "../../../functions/category";
 
 const initialState = {
   title: "Macbook Pro",
@@ -79,7 +81,11 @@ const ProductCreate = () => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Product create</h4>
+          {loading ? (
+            <LoadingOutlined className="text-dark h1" />
+          ) : (
+            <h4>Product create</h4>
+          )}
           <hr />
 
           <div className="p-3">

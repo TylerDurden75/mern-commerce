@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Resizer from "react-image-file-resizer";
-import { Avatar } from "antd";
+import { Avatar, Badge } from "antd";
 
 const FileUpload = ({ values, setValues, setLoading }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -51,19 +51,53 @@ const FileUpload = ({ values, setValues, setLoading }) => {
     }
   };
 
+  const handleRemoveImage = (public_id) => {
+    setLoading(true);
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/removeimage`,
+        { public_id },
+        {
+          headers: {
+            authtoken: user ? user.token : "",
+          },
+        }
+      )
+      .then((res) => {
+        setLoading(false);
+        const { images } = values;
+        let filteredImages = images.filter((item) => {
+          return item.public_id !== public_id;
+        });
+        setValues({ ...values, images: filteredImages });
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
   return (
     <>
       <div className="row">
         {values.images &&
           values.images.map((image) => (
-            <Avatar
+            <Badge
+              onClick={() => handleRemoveImage(image.public_id)}
+              count="X"
               key={image.public_id}
-              src={image.url}
-              size={100}
-              className="m-3"
-            />
+              style={{ cursor: "pointer" }}
+            >
+              <Avatar
+                src={image.url}
+                size={100}
+                shape="square"
+                className="ml-3"
+              />
+            </Badge>
           ))}
       </div>
+      <hr />
       <div className="row">
         <label className="btn btn-primary btn-raised">
           Choose File

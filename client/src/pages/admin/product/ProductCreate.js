@@ -33,6 +33,7 @@ const ProductCreate = () => {
 
   useEffect(() => {
     showCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const showCategories = () =>
@@ -60,11 +61,12 @@ const ProductCreate = () => {
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
-    setValues({ ...values, category: e.target.value });
+    setValues({ ...values, subs: [], category: e.target.value });
     getCategorySubs(e.target.value).then((res) => {
       //   console.log("Sub Options click", res);
       setSubOptions(res.data);
     });
+    setShowSub(true);
   };
 
   return (

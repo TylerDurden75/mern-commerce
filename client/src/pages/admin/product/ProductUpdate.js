@@ -30,6 +30,7 @@ const initialState = {
 const ProductUpdate = () => {
   //state
   const [values, setValues] = useState(initialState);
+  const [loading, setLoading] = useState(false);
   const [subOptions, setSubOptions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [arrayOfSubs, setArrayOfSubIds] = useState([]);
@@ -98,18 +99,32 @@ const ProductUpdate = () => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Product Update</h4>
+          {loading ? (
+            <LoadingOutlined className="text-dark h1" />
+          ) : (
+            <h4>Product create</h4>
+          )}
+          <hr />
+
+          <div className="p-3">
+            <FileUpload
+              values={values}
+              setValues={setValues}
+              setLoading={setLoading}
+            />
+          </div>
+
           <ProductUpdateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             handleCategoryChange={handleCategoryChange}
             setValues={setValues}
+            setArrayOfSubIds={setArrayOfSubIds}
             values={values}
             categories={categories}
             subOptions={subOptions}
             arrayOfSubs={arrayOfSubs}
             selectedCategory={selectedCategory}
-            setArrayOfSubIds={setArrayOfSubIds}
           />
           <hr />
         </div>

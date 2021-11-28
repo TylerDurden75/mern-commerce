@@ -33,6 +33,7 @@ const ProductUpdate = () => {
   const [subOptions, setSubOptions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [arrayOfSubs, setArrayOfSubIds] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   //Redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -75,11 +76,19 @@ const ProductUpdate = () => {
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
-    setValues({ ...values, subs: [], category: e.target.value });
+    setValues({ ...values, subs: [] });
+
+    setSelectedCategory(e.target.value);
+
     getCategorySubs(e.target.value).then((res) => {
       //   console.log("Sub Options click", res);
       setSubOptions(res.data);
     });
+    if (values.category._id === e.target.value) {
+      showProduct();
+    }
+
+    setArrayOfSubIds([]);
   };
 
   return (
@@ -99,6 +108,7 @@ const ProductUpdate = () => {
             categories={categories}
             subOptions={subOptions}
             arrayOfSubs={arrayOfSubs}
+            selectedCategory={selectedCategory}
             setArrayOfSubIds={setArrayOfSubIds}
           />
           <hr />

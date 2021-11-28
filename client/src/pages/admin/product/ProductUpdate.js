@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import { LoadingOutlined } from "@ant-design/icons";
 
-import { getProduct } from "../../../functions/product";
+import { getProduct, updateProduct } from "../../../functions/product";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 
 import AdminNav from "../../../components/nav/AdminNav";
@@ -38,7 +38,9 @@ const ProductUpdate = () => {
 
   //Redux
   const { user } = useSelector((state) => ({ ...state }));
+
   let { slug } = useParams();
+  let navigate = useNavigate();
 
   useEffect(() => {
     showProduct();
@@ -68,6 +70,22 @@ const ProductUpdate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    values.subs = arrayOfSubs;
+    values.category = selectedCategory ? selectedCategory : values.category;
+
+    updateProduct(slug, values, user.token)
+      .then((res) => {
+        setLoading(false);
+        toast.success(`"${res.data.title}" is updated`);
+        navigate("/admin/products");
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        toast.error(err.response.data.err);
+      });
   };
 
   const handleChange = (e) => {

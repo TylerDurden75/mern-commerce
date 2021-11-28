@@ -59,7 +59,9 @@ exports.update = async (req, res) => {
     ).exec();
     res.json(updated);
   } catch (err) {
-    console.log(err);
-    return res.status(400).send("Product update failed");
+    console.log("Product update Error", err);
+    res.status(400).json({
+      err: err.message,
+    });
   }
 };

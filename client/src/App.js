@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 
+import Product from "./pages/Product";
+
 import Header from "./components/nav/Header";
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
@@ -60,6 +62,7 @@ const App = () => {
         <Route path="/forgot/password" element={<ForgotPassword />} />
         <Route path="/user/*" element={<UserRoute />} />
         <Route path="/admin/*" element={<AdminRoute />} />
+        <Route path="/product/:slug" element={<Product />} />
       </Routes>
     </React.Fragment>
   );

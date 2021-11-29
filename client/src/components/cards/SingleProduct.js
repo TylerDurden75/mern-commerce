@@ -5,6 +5,7 @@ import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import laptop from "../../img/default-img.jpg";
 
 const { Meta } = Card;
 
@@ -14,23 +15,29 @@ const SingleProduct = ({ product }) => {
   return (
     <>
       <div className="col-md-7">
-        <Carousel showArrows={true} autoPlay infiniteLoop>
-          {images &&
-            images.map((i) => (
-              <img src={i.url} key={i.public_id} alt="laptop" />
-            ))}
-        </Carousel>
+        {images && images.length ? (
+          <Carousel showArrows={true} autoPlay infiniteLoop>
+            {images &&
+              images.map((i) => (
+                <img src={i.url} key={i.public_id} alt="laptop" />
+              ))}
+          </Carousel>
+        ) : (
+          <Card
+            cover={<img src={laptop} alt="" className=" card-image mb-3" />}
+          ></Card>
+        )}
       </div>
 
       <div className="col-md-5">
         <Card
           actions={[
             <>
-              <ShoppingCartOutlined className="text-primary" /> <br />
+              <ShoppingCartOutlined className="text-info" /> <br />
               Add to cart
             </>,
             <Link to="/">
-              <HeartOutlined className="text-info" /> <br />
+              <HeartOutlined className="text-danger" /> <br />
               Add To Whislist
             </Link>,
           ]}

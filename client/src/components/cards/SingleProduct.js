@@ -1,7 +1,10 @@
 import React from "react";
-import { Card } from "antd";
 import { Link } from "react-router-dom";
+import { Card } from "antd";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const { Meta } = Card;
 
@@ -10,7 +13,14 @@ const SingleProduct = ({ product }) => {
 
   return (
     <>
-      <div className="col-md-7">image carrousel</div>
+      <div className="col-md-7">
+        <Carousel showArrows={true} autoPlay infiniteLoop>
+          {images &&
+            images.map((i) => (
+              <img src={i.url} key={i.public_id} alt="laptop" />
+            ))}
+        </Carousel>
+      </div>
 
       <div className="col-md-5">
         <Card

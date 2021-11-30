@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ProductListItems from "./ProductListItems";
+
 import { Card, Tabs } from "antd";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
@@ -8,10 +9,13 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import laptop from "../../img/default-img.jpg";
 
+import StarRatings from "react-star-ratings";
+
 const { TabPane } = Tabs;
 
 const SingleProduct = ({ product }) => {
-  const { title, images, description } = product;
+  const { title, images, description, _id } = product;
+  const [rating, setRating] = useState(0);
 
   return (
     <React.Fragment>
@@ -41,6 +45,18 @@ const SingleProduct = ({ product }) => {
 
       <div className="col-md-5">
         <h1 className="bg-secondary p-3">{title}</h1>
+
+        <StarRatings
+          name={_id}
+          rating={2}
+          changeRating={(newRating, name) =>
+            console.log("newRating", newRating, "name", name)
+          }
+          isSelectable={true}
+          starRatedColor="#f1a545"
+          starHoverColor="#f1a545"
+        />
+
         <Card
           actions={[
             <React.Fragment>

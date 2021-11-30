@@ -11,6 +11,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import laptop from "../../img/default-img.jpg";
 
 import StarRatings from "react-star-ratings";
+import { showAverage } from "../../functions/rating";
 
 const { TabPane } = Tabs;
 
@@ -46,6 +47,10 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
       <div className="col-md-5">
         <h1 className="bg-secondary p-3">{title}</h1>
+
+        {product && product.ratings && product.ratings.length > 0
+          ? showAverage(product)
+          : "No rating yet"}
 
         <Card
           actions={[

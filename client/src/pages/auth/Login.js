@@ -8,7 +8,7 @@ import { Button } from "antd";
 import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("raytibo.j@gmail.com");
@@ -16,18 +16,30 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
   let navigate = useNavigate();
+  let location = useLocation();
 
   useEffect(() => {
-    if (user && user.token) navigate("/");
-  }, [user, navigate]);
+    let intended = location.state;
+    if (intended) {
+      return;
+    } else {
+      if (user && user.token) navigate("/");
+    }
+  }, [user, navigate, location.state]);
 
   let dispatch = useDispatch();
 
   const roleBasedRedirect = (res) => {
-    if (res.data.role === "admin") {
-      navigate("/admin/dashboard");
+    let intended = location.state;
+    console.log(intended);
+    if (intended) {
+      navigate(intended.from);
     } else {
-      navigate("/user/history");
+      if (res.data.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/user/history");
+      }
     }
   };
 

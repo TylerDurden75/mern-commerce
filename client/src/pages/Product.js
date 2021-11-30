@@ -21,7 +21,7 @@ const Product = () => {
 
   const onStarClick = (newRating, name) => {
     setStar(newRating);
-    productStar(name, star, user.token).then((res) => {
+    productStar(name, newRating, user.token).then((res) => {
       console.log(res.data);
       showSingleProduct(); /**If I want user to see updated in real time */
     });

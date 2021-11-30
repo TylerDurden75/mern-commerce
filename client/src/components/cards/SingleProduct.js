@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ProductListItems from "./ProductListItems";
+import RatingModal from "../modal/RatingModal";
 
 import { Card, Tabs } from "antd";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
@@ -46,17 +47,6 @@ const SingleProduct = ({ product }) => {
       <div className="col-md-5">
         <h1 className="bg-secondary p-3">{title}</h1>
 
-        <StarRatings
-          name={_id}
-          rating={2}
-          changeRating={(newRating, name) =>
-            console.log("newRating", newRating, "name", name)
-          }
-          isSelectable={true}
-          starRatedColor="#f1a545"
-          starHoverColor="#f1a545"
-        />
-
         <Card
           actions={[
             <React.Fragment>
@@ -67,6 +57,18 @@ const SingleProduct = ({ product }) => {
               <HeartOutlined className="text-danger" /> <br />
               Add To Whislist
             </Link>,
+            <RatingModal>
+              <StarRatings
+                name={_id}
+                rating={2}
+                changeRating={(newRating, name) =>
+                  console.log("newRating", newRating, "name", name)
+                }
+                isSelectable={true}
+                starRatedColor="#f1a545"
+                starHoverColor="#f1a545"
+              />
+            </RatingModal>,
           ]}
         >
           <ProductListItems product={product} />

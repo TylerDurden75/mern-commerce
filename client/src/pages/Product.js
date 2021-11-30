@@ -16,6 +16,15 @@ const Product = () => {
     showSingleProduct();
   }, [slug]);
 
+  useEffect(() => {
+    if (product.ratings && user) {
+      let existingRatingObject = product.ratings.find(
+        (el) => el.postedBy.toString() === user._id.toString()
+      );
+      existingRatingObject && setStar(existingRatingObject.star);
+    }
+  });
+
   const showSingleProduct = () =>
     getProduct(slug).then((res) => setProduct(res.data));
 

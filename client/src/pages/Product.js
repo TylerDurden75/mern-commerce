@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { getProduct } from "../functions/product";
+import { getProduct, productStar } from "../functions/product";
 import { useParams } from "react-router-dom";
 import SingleProduct from "../components/cards/SingleProduct";
+import { useSelector } from "react-redux";
 
 const Product = () => {
   const [product, setProduct] = useState({});
+  const [star, setStar] = useState(0);
   const { slug } = useParams();
+
+  //redux
+  const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     showSingleProduct();
@@ -14,10 +19,22 @@ const Product = () => {
   const showSingleProduct = () =>
     getProduct(slug).then((res) => setProduct(res.data));
 
+  const onStarClick = (newRating, name) => {
+    setStar(newRating);
+    productStar(name, star, user.token).then((res) => {
+      console.log(res.data);
+      showSingleProduct(); /**If I want user to see updated in real time */
+    });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row pt-4">
-        <SingleProduct product={product} />
+        <SingleProduct
+          product={product}
+          onStarClick={onStarClick}
+          star={star}
+        />
       </div>
 
       <div className="row">

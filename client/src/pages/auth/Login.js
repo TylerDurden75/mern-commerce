@@ -31,7 +31,6 @@ const Login = () => {
 
   const roleBasedRedirect = (res) => {
     let intended = location.state;
-    console.log(intended);
     if (intended) {
       navigate(intended.from);
     } else {

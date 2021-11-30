@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import ProductListItems from "./ProductListItems";
 import RatingModal from "../modal/RatingModal";
@@ -14,9 +14,9 @@ import StarRatings from "react-star-ratings";
 
 const { TabPane } = Tabs;
 
-const SingleProduct = ({ product }) => {
+/**Children component of Product Page */
+const SingleProduct = ({ product, onStarClick, star }) => {
   const { title, images, description, _id } = product;
-  const [rating, setRating] = useState(0);
 
   return (
     <React.Fragment>
@@ -60,10 +60,8 @@ const SingleProduct = ({ product }) => {
             <RatingModal>
               <StarRatings
                 name={_id}
-                rating={2}
-                changeRating={(newRating, name) =>
-                  console.log("newRating", newRating, "name", name)
-                }
+                rating={star}
+                changeRating={onStarClick}
                 isSelectable={true}
                 starRatedColor="#f1a545"
                 starHoverColor="#f1a545"

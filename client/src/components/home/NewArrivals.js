@@ -27,7 +27,7 @@ const NewArrivals = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className="container">
         {loading ? (
           <LoadingCard count={3} />
@@ -51,7 +51,7 @@ const NewArrivals = () => {
           />
         </nav>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

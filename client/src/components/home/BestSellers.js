@@ -27,7 +27,7 @@ const BestSellers = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className="container">
         {loading ? (
           <LoadingCard count={3} />
@@ -51,7 +51,7 @@ const BestSellers = () => {
           />
         </nav>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

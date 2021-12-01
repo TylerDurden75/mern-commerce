@@ -7,6 +7,7 @@ import {
   FormOutlined,
   UserOutlined,
   LogoutOutlined,
+  ShopOutlined,
 } from "@ant-design/icons";
 
 import { getAuth, signOut } from "@firebase/auth";
@@ -41,6 +42,10 @@ const Header = () => {
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
       <Item key="home" icon={<HomeOutlined />}>
         <Link to="/">Home</Link>
+      </Item>
+
+      <Item key="shop" icon={<ShopOutlined />}>
+        <Link to="/shop">Shop</Link>
       </Item>
 
       {!user && (

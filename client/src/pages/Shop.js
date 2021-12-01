@@ -1,20 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductsByCount } from "../functions/product";
+import {
+  getProductsByCount,
+  fetchProductsByFilter,
+} from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  let { search } = useSelector((state) => ({ ...state }));
+  const { text } = search;
+
   useEffect(() => {
     showAllProducts();
   }, []);
 
+  /**1. Load products by default on page load */
   const showAllProducts = () => {
     getProductsByCount(12).then((p) => {
       setProducts(p.data);
       setLoading(false);
+    });
+  };
+
+  /**2. Load products by default on page load */
+  useEffect(() => {
+    const delayed = setTimeout(() => {
+      fetchProducts({ query: text });
+    }, 450);
+    return () => clearTimeout(delayed);
+  }, [text]);
+
+  const fetchProducts = (arg) => {
+    fetchProductsByFilter(arg).then((res) => {
+      setProducts(res.data);
     });
   };
 

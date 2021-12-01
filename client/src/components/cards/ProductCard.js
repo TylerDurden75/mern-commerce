@@ -8,7 +8,7 @@ import laptop from "../../img/default-img.jpg";
 const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
-  const { title, description, images, slug } = product;
+  const { title, description, images, slug, price } = product;
   return (
     <React.Fragment>
       {product && product.ratings && product.ratings.length > 0 ? (
@@ -37,7 +37,7 @@ const ProductCard = ({ product }) => {
       >
         {" "}
         <Meta
-          title={title}
+          title={`${title} - $${price}`}
           description={`${description && description.substring(0, 40)}...`}
         />
       </Card>

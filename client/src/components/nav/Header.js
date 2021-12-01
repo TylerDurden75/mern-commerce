@@ -7,7 +7,7 @@ import {
   FormOutlined,
   UserOutlined,
   LogoutOutlined,
-  ShopOutlined,
+  ShoppingOutlined,
 } from "@ant-design/icons";
 
 import { getAuth, signOut } from "@firebase/auth";
@@ -44,7 +44,7 @@ const Header = () => {
         <Link to="/">Home</Link>
       </Item>
 
-      <Item key="shop" icon={<ShopOutlined />}>
+      <Item key="shop" icon={<ShoppingOutlined />}>
         <Link to="/shop">Shop</Link>
       </Item>
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { getCategory } from "../../functions/category";
+import { getSub } from "../../functions/sub";
 import ProductCard from "../../components/cards/ProductCard";
 import { useParams } from "react-router";
 
-const CategoryHome = () => {
-  const [category, setCategory] = useState({});
+const SubHome = () => {
+  const [sub, setSub] = useState({});
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -12,9 +12,9 @@ const CategoryHome = () => {
 
   useEffect(() => {
     setLoading(true);
-    getCategory(slug).then((res) => {
+    getSub(slug).then((res) => {
       //   console.log(JSON.stringify(res.data, null, 4));
-      setCategory(res.data.category);
+      setSub(res.data.sub);
       setProducts(res.data.products);
       setLoading(false);
     });
@@ -32,11 +32,11 @@ const CategoryHome = () => {
             <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
               {products.length >= 2 ? (
                 <span>
-                  {products.length} Products in "{category.name}" category
+                  {products.length} Products in "{sub.name}" category
                 </span>
               ) : (
                 <span>
-                  {products.length} Product in "{category.name}" category
+                  {products.length} Product in "{sub.name}" category
                 </span>
               )}
             </h4>
@@ -55,4 +55,4 @@ const CategoryHome = () => {
   );
 };
 
-export default CategoryHome;
+export default SubHome;

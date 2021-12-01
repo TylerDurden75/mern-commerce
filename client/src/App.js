@@ -9,6 +9,7 @@ import Register from "./pages/auth/Register";
 import Home from "./pages/Home";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import CategoryHome from "./pages/category/CategoryHome";
 
 import Product from "./pages/Product";
 
@@ -63,6 +64,7 @@ const App = () => {
         <Route path="/user/*" element={<UserRoute />} />
         <Route path="/admin/*" element={<AdminRoute />} />
         <Route path="/product/:slug" element={<Product />} />
+        <Route path="/category/:slug" element={<CategoryHome />} />
       </Routes>
     </React.Fragment>
   );

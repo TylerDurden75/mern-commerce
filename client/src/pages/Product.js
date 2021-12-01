@@ -9,7 +9,7 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [star, setStar] = useState(0);
   const [related, setRelated] = useState([]);
-  const { slug } = useParams();
+  let { slug } = useParams();
 
   //redux
   const { user } = useSelector((state) => ({ ...state }));

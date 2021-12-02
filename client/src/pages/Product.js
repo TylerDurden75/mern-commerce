@@ -25,7 +25,7 @@ const Product = () => {
       );
       existingRatingObject && setStar(existingRatingObject.star);
     }
-  });
+  }, [product.ratings, user]);
 
   const showSingleProduct = () => {
     getProduct(slug).then((res) => {

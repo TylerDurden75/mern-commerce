@@ -15,7 +15,15 @@ const BestSellers = () => {
   }, [page]);
 
   useEffect(() => {
-    getProductsCount().then((res) => setProductsCount(res.data));
+    let cancel = false;
+    getProductsCount().then((res) => {
+      if (cancel) return;
+      setProductsCount(res.data);
+    });
+
+    return () => {
+      cancel = true;
+    };
   }, []);
 
   const showAllProducts = () => {

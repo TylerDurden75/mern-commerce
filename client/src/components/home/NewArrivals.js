@@ -14,8 +14,22 @@ const NewArrivals = () => {
     showAllProducts();
   }, [page]);
 
+  /**Wrong method => memory leak */
+  // useEffect(() => {
+  //   getProductsCount().then((res) => setProductsCount(res.data));
+  // }, []);
+
+  /**GOOD METHOD clean up on useEffect */
   useEffect(() => {
-    getProductsCount().then((res) => setProductsCount(res.data));
+    let cancel = false;
+    getProductsCount().then((res) => {
+      if (cancel) return;
+      setProductsCount(res.data);
+    });
+
+    return () => {
+      cancel = true;
+    };
   }, []);
 
   const showAllProducts = () => {

@@ -1,7 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  CloseSquareOutlined,
+} from "@ant-design/icons";
 import ModalImage from "react-modal-image";
 import laptop from "../../img/default-img.jpg";
 
@@ -44,6 +48,26 @@ const ProductCardInCheckout = ({ p }) => {
       cart.map((product, i) => {
         if (product._id === p._id) {
           cart[i].count = count;
+        }
+      });
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
+    }
+  };
+
+  const handleRemove = () => {
+    let cart = [];
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.map((product, i) => {
+        if (product._id === p._id) {
+          cart.splice(i, 1);
         }
       });
 
@@ -99,14 +123,19 @@ const ProductCardInCheckout = ({ p }) => {
             min="1"
           />
         </td>
-        <td>
+        <td className="text-center">
           {p.shipping === "Yes" ? (
             <CheckCircleOutlined className="text-success" />
           ) : (
             <CloseCircleOutlined className="text-danger" />
           )}
         </td>
-        <td>delete icon</td>
+        <td className="text-center">
+          <CloseSquareOutlined
+            onClick={handleRemove}
+            className="text-danger pointer"
+          />
+        </td>
       </tr>
     </tbody>
   );

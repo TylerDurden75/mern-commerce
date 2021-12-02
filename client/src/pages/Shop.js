@@ -10,6 +10,7 @@ import { Menu, Slider, Checkbox, Radio } from "antd";
 import {
   DollarOutlined,
   DownSquareOutlined,
+  HighlightOutlined,
   StarOutlined,
   TagOutlined,
   TagsOutlined,
@@ -40,6 +41,14 @@ const Shop = () => {
     "ASUS",
   ]);
   const [brand, setBrand] = useState("");
+  const [colors, setColors] = useState([
+    "Black",
+    "Brown",
+    "Silver",
+    "White",
+    "Blue",
+  ]);
+  const [color, setColor] = useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -89,6 +98,7 @@ const Shop = () => {
     setStar("");
     setSub("");
     setBrand("");
+    setColor("");
     setTimeout(() => {
       setOk(!ok);
     }, 450);
@@ -120,6 +130,7 @@ const Shop = () => {
     setStar("");
     setSub("");
     setBrand("");
+    setColor("");
 
     let intoTheState = [...categoryIds];
     let justChecked = e.target.value;
@@ -145,6 +156,7 @@ const Shop = () => {
     setCategoryIds([]);
     setSub("");
     setBrand("");
+    setColor("");
     setStar(num);
     fetchProducts({ stars: num });
   };
@@ -171,6 +183,7 @@ const Shop = () => {
     setCategoryIds([]);
     setStar("");
     setBrand("");
+    setColor("");
     setSub(sub);
     fetchProducts({ sub: sub });
   };
@@ -189,6 +202,7 @@ const Shop = () => {
   const showBrands = () =>
     brands.map((b) => (
       <Radio
+        key={b}
         value={b}
         name={b}
         checked={b === brand}
@@ -208,8 +222,38 @@ const Shop = () => {
     setCategoryIds([]);
     setStar("");
     setSub("");
+    setColor("");
     setBrand(e.target.value);
     fetchProducts({ brand: e.target.value });
+  };
+
+  /**8. Load products based on colors */
+  const showColors = () =>
+    colors.map((col) => (
+      <Radio
+        key={col}
+        value={col}
+        name={col}
+        checked={col === color}
+        onChange={handleColor}
+        className="pb-1 pl-4 pr-4"
+      >
+        {col}
+      </Radio>
+    ));
+
+  const handleColor = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setSub("");
+    setBrand("");
+    setColor(e.target.value);
+    fetchProducts({ color: e.target.value });
   };
 
   return (
@@ -296,6 +340,20 @@ const Shop = () => {
             >
               <div style={{ marginTop: "-10px" }} className="pr-5 bg-white">
                 {showBrands()}
+              </div>
+            </SubMenu>
+
+            <SubMenu
+              key="6"
+              title={
+                <span className="h6">
+                  <HighlightOutlined />
+                  Color
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-10px" }} className="pr-5 bg-white">
+                {showColors()}
               </div>
             </SubMenu>
           </Menu>

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import _ from "lodash";
 import ProductListItems from "./ProductListItems";
 import RatingModal from "../modal/RatingModal";
 
-import { Card, Tabs } from "antd";
+import { Card, Tabs, Tooltip } from "antd";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 import { Carousel } from "react-responsive-carousel";
@@ -18,6 +20,31 @@ const { TabPane } = Tabs;
 /**Children component of Product Page */
 const SingleProduct = ({ product, onStarClick, star }) => {
   const { title, images, description, _id } = product;
+  const [tooltip, setTooltip] = useState("Click to add");
+
+  const { user, cart } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+
+  const handleAddToCard = () => {
+    let cart = [];
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      let unique = _.uniqWith(cart, _.isEqual);
+      localStorage.setItem("cart", JSON.stringify(unique));
+      setTooltip("Added");
+      //add to redux state
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: unique,
+      });
+    }
+  };
 
   return (
     <React.Fragment>
@@ -56,10 +83,12 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
         <Card
           actions={[
-            <React.Fragment>
-              <ShoppingCartOutlined className="text-info" /> <br />
-              Add to cart
-            </React.Fragment>,
+            <Tooltip title={tooltip}>
+              <a onClick={handleAddToCard}>
+                <ShoppingCartOutlined className="text-danger" /> <br /> Add to
+                Cart
+              </a>
+            </Tooltip>,
             <Link to="/">
               <HeartOutlined className="text-danger" /> <br />
               Add To Whislist

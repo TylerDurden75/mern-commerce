@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 
@@ -11,6 +12,9 @@ const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
   const { title, description, images, slug, price } = product;
+
+  const { user, cart } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
 
   const [tooltip, setTooltip] = useState("Click to add");
 
@@ -27,6 +31,11 @@ const ProductCard = ({ product }) => {
       let unique = _.uniqWith(cart, _.isEqual);
       localStorage.setItem("cart", JSON.stringify(unique));
       setTooltip("Added");
+      //add to redux state
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: unique,
+      });
     }
   };
 

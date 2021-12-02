@@ -11,7 +11,17 @@ const BestSellers = () => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    showAllProducts();
+    setLoading(true);
+    let cancel = false;
+    getProducts("sold", "desc", page).then((res) => {
+      if (cancel) return;
+      setProducts(res.data);
+      setLoading(false);
+    });
+
+    return () => {
+      cancel = true;
+    };
   }, [page]);
 
   useEffect(() => {
@@ -25,14 +35,6 @@ const BestSellers = () => {
       cancel = true;
     };
   }, []);
-
-  const showAllProducts = () => {
-    setLoading(true);
-    getProducts("sold", "desc", page).then((res) => {
-      setProducts(res.data);
-      setLoading(false);
-    });
-  };
 
   return (
     <React.Fragment>

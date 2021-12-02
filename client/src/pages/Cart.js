@@ -12,6 +12,8 @@ const Cart = () => {
     }, 0);
   };
 
+  const handleClick = () => {};
+
   return (
     <div className="container-fluid pt-2">
       <div className="row">
@@ -41,12 +43,23 @@ const Cart = () => {
           Total : <b>${getTotal()}</b>
           <hr />
           {user ? (
-            <button className="btn btn-sm btn-primary mt-2">
+            <button
+              onClick={handleClick}
+              className="btn btn-sm btn-primary mt-2"
+              disabled={!cart.length}
+            >
               Proceed to checkout
             </button>
           ) : (
             <button className="btn btn-sm btn-primary mt-2">
-              Login to checkout
+              <Link
+                to={{
+                  pathname: "/login",
+                  state: { from: "cart" },
+                }}
+              >
+                Login to checkout
+              </Link>
             </button>
           )}
         </div>

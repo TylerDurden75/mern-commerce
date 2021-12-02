@@ -10,8 +10,24 @@ const NewArrivals = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
+  /**Wrong method => memory leak */
+  // useEffect(() => {
+  //   showAllProducts();
+  // }, [page]);
+
+  /**GOOD METHOD clean up on useEffect */
   useEffect(() => {
-    showAllProducts();
+    setLoading(true);
+    let cancel = false;
+    getProducts("createdAt", "desc", page).then((res) => {
+      if (cancel) return;
+      setProducts(res.data);
+      setLoading(false);
+    });
+
+    return () => {
+      cancel = true;
+    };
   }, [page]);
 
   /**Wrong method => memory leak */
@@ -32,13 +48,13 @@ const NewArrivals = () => {
     };
   }, []);
 
-  const showAllProducts = () => {
-    setLoading(true);
-    getProducts("createdAt", "desc", page).then((res) => {
-      setProducts(res.data);
-      setLoading(false);
-    });
-  };
+  // const showAllProducts = () => {
+  //   setLoading(true);
+  //   getProducts("createdAt", "desc", page).then((res) => {
+  //     setProducts(res.data);
+  //     setLoading(false);
+  //   });
+  // };
 
   return (
     <React.Fragment>

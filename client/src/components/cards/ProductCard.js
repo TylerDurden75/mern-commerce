@@ -36,6 +36,11 @@ const ProductCard = ({ product }) => {
         type: "ADD_TO_CART",
         payload: unique,
       });
+      //show items on sideDraw
+      dispatch({
+        type: "SET_VISIBLE",
+        payload: true,
+      });
     }
   };
 

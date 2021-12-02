@@ -12,8 +12,8 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import CategoryHome from "./pages/category/CategoryHome";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
-
 import Product from "./pages/Product";
+import Checkout from "./pages/Checkout";
 
 import Header from "./components/nav/Header";
 import UserRoute from "./components/routes/UserRoute";
@@ -73,6 +73,7 @@ const App = () => {
         <Route path="/sub/:slug" element={<SubHome />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </React.Fragment>
   );

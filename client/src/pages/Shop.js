@@ -8,9 +8,11 @@ import { getCategories } from "../functions/category";
 import { getSubs } from "../functions/sub";
 import { Menu, Slider, Checkbox, Radio } from "antd";
 import {
+  BgColorsOutlined,
   DollarOutlined,
   DownSquareOutlined,
   HighlightOutlined,
+  SendOutlined,
   StarOutlined,
   TagOutlined,
   TagsOutlined,
@@ -49,6 +51,7 @@ const Shop = () => {
     "Blue",
   ]);
   const [color, setColor] = useState("");
+  const [shipping, setShipping] = useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -99,6 +102,8 @@ const Shop = () => {
     setSub("");
     setBrand("");
     setColor("");
+    setShipping("");
+
     setTimeout(() => {
       setOk(!ok);
     }, 450);
@@ -131,6 +136,7 @@ const Shop = () => {
     setSub("");
     setBrand("");
     setColor("");
+    setShipping("");
 
     let intoTheState = [...categoryIds];
     let justChecked = e.target.value;
@@ -157,6 +163,7 @@ const Shop = () => {
     setSub("");
     setBrand("");
     setColor("");
+    setShipping("");
     setStar(num);
     fetchProducts({ stars: num });
   };
@@ -184,6 +191,7 @@ const Shop = () => {
     setStar("");
     setBrand("");
     setColor("");
+    setShipping("");
     setSub(sub);
     fetchProducts({ sub: sub });
   };
@@ -223,6 +231,7 @@ const Shop = () => {
     setStar("");
     setSub("");
     setColor("");
+    setShipping("");
     setBrand(e.target.value);
     fetchProducts({ brand: e.target.value });
   };
@@ -252,8 +261,46 @@ const Shop = () => {
     setStar("");
     setSub("");
     setBrand("");
+    setShipping("");
     setColor(e.target.value);
     fetchProducts({ color: e.target.value });
+  };
+
+  /**9. Load products based on shipping y/n*/
+  const showShipping = () => (
+    <React.Fragment>
+      <Checkbox
+        className="pb-2 pl-4 pr-4"
+        onChange={handleShippingChange}
+        value="Yes"
+        checked={shipping === "Yes"}
+      >
+        Yes
+      </Checkbox>
+      <Checkbox
+        className="pb-2 pl-4 pr-4"
+        onChange={handleShippingChange}
+        value="No"
+        checked={shipping === "No"}
+      >
+        No
+      </Checkbox>
+    </React.Fragment>
+  );
+
+  const handleShippingChange = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    setSub("");
+    setBrand("");
+    setColor("");
+    setShipping(e.target.value);
+    fetchProducts({ shipping: e.target.value });
   };
 
   return (
@@ -347,13 +394,27 @@ const Shop = () => {
               key="6"
               title={
                 <span className="h6">
-                  <HighlightOutlined />
+                  <BgColorsOutlined />
                   Color
                 </span>
               }
             >
               <div style={{ marginTop: "-10px" }} className="pr-5 bg-white">
                 {showColors()}
+              </div>
+            </SubMenu>
+
+            <SubMenu
+              key="7"
+              title={
+                <span className="h6">
+                  <SendOutlined />
+                  Shipping
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-10px" }} className="pr-5 bg-white">
+                {showShipping()}
               </div>
             </SubMenu>
           </Menu>

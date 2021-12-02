@@ -1,14 +1,35 @@
-import React from "react";
-import { Card } from "antd";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { showAverage } from "../../functions/rating";
+import _ from "lodash";
+
+import { Card, Tooltip } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import laptop from "../../img/default-img.jpg";
+import { showAverage } from "../../functions/rating";
 
 const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
   const { title, description, images, slug, price } = product;
+
+  const [tooltip, setTooltip] = useState("Click to add");
+
+  const handleAddToCard = () => {
+    let cart = [];
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      let unique = _.uniqWith(cart, _.isEqual);
+      localStorage.setItem("cart", JSON.stringify(unique));
+      setTooltip("Added");
+    }
+  };
+
   return (
     <React.Fragment>
       {product && product.ratings && product.ratings.length > 0 ? (
@@ -30,9 +51,12 @@ const ProductCard = ({ product }) => {
             <EyeOutlined className="text-primary" />
             <br /> View Product
           </Link>,
-          <React.Fragment>
-            <ShoppingCartOutlined className="text-danger" /> <br /> Add to Cart
-          </React.Fragment>,
+          <Tooltip title={tooltip}>
+            <a onClick={handleAddToCard}>
+              <ShoppingCartOutlined className="text-danger" /> <br /> Add to
+              Cart
+            </a>
+          </Tooltip>,
         ]}
       >
         {" "}

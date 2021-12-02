@@ -11,6 +11,7 @@ import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import CategoryHome from "./pages/category/CategoryHome";
 import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
 
 import Product from "./pages/Product";
 
@@ -69,6 +70,7 @@ const App = () => {
         <Route path="/category/:slug" element={<CategoryHome />} />
         <Route path="/sub/:slug" element={<SubHome />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </React.Fragment>
   );

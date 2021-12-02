@@ -18,6 +18,7 @@ import Product from "./pages/Product";
 import Header from "./components/nav/Header";
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
+import SideDrawer from "./components/drawer/SideDrawer";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -57,6 +58,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Header />
+      <SideDrawer />
       <ToastContainer />
       <Routes>
         <Route exact path="/" element={<Home />} />

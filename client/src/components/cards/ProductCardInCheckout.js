@@ -1,15 +1,69 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import ModalImage from "react-modal-image";
+import laptop from "../../img/default-img.jpg";
 
-const ProductCardInCheckout = ({ product }) => {
+const ProductCardInCheckout = ({ p }) => {
+  const colors = ["Black", "Brown", "Silver", "White", "Blue"];
+  let dispatch = useDispatch();
+
+  const handleColorChange = (e) => {
+    let cart = [];
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+
+      cart.map((product, i) => {
+        if (product._id === p._id) {
+          cart[i].color = e.target.value;
+        }
+      });
+      // console.log('cart update color', cart);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
+    }
+  };
+
   return (
     <tbody>
       <tr>
-        <td>Image</td>
-        <td>{product.title}</td>
-        <td>${product.price}</td>
-        <td>{product.brand}</td>
-        <td>{product.color}</td>
-        <td>{product.count}</td>
+        <td>
+          <div style={{ width: "80px", height: "auto" }}>
+            {p.images.length ? (
+              <ModalImage small={p.images[0].url} large={p.images[0].url} />
+            ) : (
+              <ModalImage small={laptop} large={laptop} />
+            )}
+          </div>
+        </td>
+        <td>{p.title}</td>
+        <td>${p.price}</td>
+        <td>{p.brand}</td>
+        <td>
+          <select
+            onChange={handleColorChange}
+            name="color"
+            className="form-control"
+          >
+            {p.color ? (
+              <option value={p.color}>{p.color}</option>
+            ) : (
+              <option>Select</option>
+            )}
+            {colors
+              .filter((col) => col !== p.color)
+              .map((col) => (
+                <option key={col} value={col}>
+                  {col}
+                </option>
+              ))}
+          </select>
+        </td>
+        <td>{p.count}</td>
         <td>shipping Icon</td>
         <td>delete icon</td>
       </tr>

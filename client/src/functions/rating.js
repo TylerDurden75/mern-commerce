@@ -1,6 +1,6 @@
 import { React } from "react";
 import StarRating from "react-star-ratings";
-import { productStar } from "./product";
+// import { productStar } from "./product";
 
 export const showAverage = (p) => {
   if (p && p.ratings) {

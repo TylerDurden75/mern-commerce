@@ -11,7 +11,6 @@ import {
   BgColorsOutlined,
   DollarOutlined,
   DownSquareOutlined,
-  HighlightOutlined,
   SendOutlined,
   StarOutlined,
   TagOutlined,
@@ -88,7 +87,7 @@ const Shop = () => {
   /**3. Load products based on price range */
   useEffect(() => {
     fetchProducts({ price });
-  }, [ok]);
+  }, [ok, price]);
 
   const handleSlider = (value) => {
     dispatch({

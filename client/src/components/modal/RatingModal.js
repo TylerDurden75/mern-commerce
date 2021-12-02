@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { StarOutlined } from "@ant-design/icons";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 
 const RatingModal = ({ children }) => {

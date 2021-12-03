@@ -11,6 +11,7 @@ const Checkout = () => {
   const [cartTotal, setCartTotal] = useState(0);
   const [address, setAddress] = useState("");
   const [addressSaved, setAddressSaved] = useState(false);
+  const [coupon, setCoupon] = useState("");
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
@@ -50,33 +51,60 @@ const Checkout = () => {
     });
   };
 
+  const applyDiscountCoupon = () => {
+    console.log("send coupon to backend", coupon);
+  };
+
+  const showAddress = () => (
+    <React.Fragment>
+      <ReactQuill theme="snow" value={address} onChange={setAddress} />
+      <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
+        Save
+      </button>
+    </React.Fragment>
+  );
+
+  const showProductSummary = () =>
+    products.map((p, i) => (
+      <div key={i}>
+        <p>
+          {p.product.title} ({p.color}) x {p.count} = ${p.price * p.count}
+        </p>
+      </div>
+    ));
+
+  const showApplyCoupon = () => (
+    <React.Fragment>
+      <input
+        onChange={(e) => setCoupon(e.target.value)}
+        value={coupon}
+        type="text"
+        className="form-control"
+      />
+      <button onClick={applyDiscountCoupon} className="btn btn-primary mt-2">
+        Apply
+      </button>
+    </React.Fragment>
+  );
+
   return (
     <div className="row mt-2 pl-2">
       <div className="col-md-6">
         <h4>Delivery Address</h4>
         <br />
         <br />
-        <ReactQuill theme="snow" value={address} onChange={setAddress} />
-        <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
-          Save
-        </button>
+        {showAddress()}
         <hr />
         <h4>Got Coupon ?</h4>
         <br />
-        coupon input and apply button
+        {showApplyCoupon()}
       </div>
       <div className="col-md-6">
         <h4>Order Summary</h4>
         <hr />
         <p>{products.length} Products</p>
         <hr />
-        {products.map((p, i) => (
-          <div key={i}>
-            <p>
-              {p.product.title} ({p.color}) x {p.count} = ${p.price * p.count}
-            </p>
-          </div>
-        ))}
+        {showProductSummary()}
         <hr />
         <p>
           Cart Total : <b>${cartTotal}</b>

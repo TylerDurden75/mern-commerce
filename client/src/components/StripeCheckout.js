@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { createPaymentIntent } from "../functions/stripe";
+import { Card } from "antd";
+import { DollarOutlined, CheckOutlined } from "@ant-design/icons";
+import laptop from "../img/default-img.jpg";
 
 const StripeCheckout = () => {
   const dispatch = useDispatch();
@@ -16,6 +20,10 @@ const StripeCheckout = () => {
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState("");
 
+  const [cartTotal, setCartTotal] = useState(0);
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
+  const [payable, setPayable] = useState(0);
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -23,6 +31,9 @@ const StripeCheckout = () => {
     createPaymentIntent(user.token, coupon).then((res) => {
       console.log("create payment intent", res.data);
       setClientSecret(res.data.clientSecret);
+      setCartTotal(res.data.cartTotal);
+      setTotalAfterDiscount(res.data.totalAfterDiscount);
+      setPayable(res.data.payable);
     });
   }, []);
 
@@ -74,10 +85,44 @@ const StripeCheckout = () => {
 
   return (
     <React.Fragment>
-      <p className={succeeded ? "result-message" : "result-message hidden"}>
-        👏 Payment Successful 👏{" "}
-        <Link to="/user/history">See it in your purchase history</Link>
-      </p>
+      {!succeeded && (
+        <div>
+          {coupon && totalAfterDiscount !== undefined ? (
+            <p className="alert alert-success">{`✨ Total after discount : $${totalAfterDiscount} ✨`}</p>
+          ) : (
+            <p className="alert alert-danger">
+              🤷‍♀️ &nbsp; No Coupon Applied &nbsp; 🤷‍♂️
+            </p>
+          )}
+        </div>
+      )}
+      <br />
+      <div className="text-center pb-5">
+        <Card
+          cover={
+            <img
+              src={laptop}
+              alt="laptop"
+              style={{
+                height: "200px",
+                objectFit: "cover",
+                marginBottom: "-50px",
+              }}
+            />
+          }
+          actions={[
+            <React.Fragment>
+              <DollarOutlined className="text-info" />
+              <br /> Total : ${cartTotal}
+            </React.Fragment>,
+            <React.Fragment>
+              <CheckOutlined className="text-info" />
+              <br /> Total payable : ${(payable / 100).toFixed(2)}
+            </React.Fragment>,
+          ]}
+        />
+      </div>
+
       <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
         <CardElement
           id="card-element"
@@ -98,6 +143,11 @@ const StripeCheckout = () => {
             ⛔ {error} ⛔
           </div>
         )}
+        <br />
+        <p className={succeeded ? "result-message" : "result-message hidden"}>
+          👏 Payment Successful 👏{" "}
+          <Link to="/user/history">See it in your purchase history</Link>
+        </p>
       </form>
     </React.Fragment>
   );

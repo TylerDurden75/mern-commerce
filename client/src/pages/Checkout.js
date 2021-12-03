@@ -17,7 +17,7 @@ const Checkout = () => {
   const [address, setAddress] = useState("");
   const [addressSaved, setAddressSaved] = useState(false);
   const [coupon, setCoupon] = useState("");
-  const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
   const [discountError, setDiscountError] = useState("");
 
   const dispatch = useDispatch();
@@ -54,6 +54,8 @@ const Checkout = () => {
     emptyUserCart(user.token).then((res) => {
       setProducts([]);
       setCartTotal(0);
+      setTotalAfterDiscount(0);
+      setCoupon("");
       toast.success("Cart is empty. Continue shopping.");
     });
   };
@@ -91,7 +93,10 @@ const Checkout = () => {
   const showApplyCoupon = () => (
     <React.Fragment>
       <input
-        onChange={(e) => setCoupon(e.target.value)}
+        onChange={(e) => {
+          setCoupon(e.target.value);
+          setDiscountError("");
+        }}
         value={coupon}
         type="text"
         className="form-control"
@@ -113,6 +118,12 @@ const Checkout = () => {
         <h4>Got Coupon ?</h4>
         <br />
         {showApplyCoupon()}
+        <br />
+        {discountError && (
+          <p className="bg-danger text-center text-white p-2">
+            🤷 &nbsp;&nbsp; {discountError} &nbsp;&nbsp; 🤷‍♂️
+          </p>
+        )}
       </div>
       <div className="col-md-6">
         <h4>Order Summary</h4>
@@ -124,6 +135,13 @@ const Checkout = () => {
         <p>
           Cart Total : <b>${cartTotal}</b>
         </p>
+
+        {totalAfterDiscount > 0 && (
+          <p className="bg-primary text-center text-white p-2">
+            ✨✨✨ &nbsp; Total Payable after discount : ${totalAfterDiscount}{" "}
+            &nbsp; ✨✨✨
+          </p>
+        )}
 
         <div className="row">
           <div className="col-md-6">

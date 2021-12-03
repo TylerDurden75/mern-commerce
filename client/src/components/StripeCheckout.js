@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { createPaymentIntent } from "../functions/stripe";
@@ -25,9 +26,33 @@ const StripeCheckout = () => {
     });
   }, []);
 
-  const handleSubmit = async (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setProcessing(true);
 
-  const handleChange = async (e) => {};
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: e.target.name.value,
+        },
+      },
+    });
+    if (payload.error) {
+      setError(`Payment Failed ${payload.error.message}`);
+      setProcessing(false);
+    } else {
+      // console.log(JSON.stringify(payload, null, 4));
+      setError(null);
+      setProcessing(false);
+      setSucceeded(true);
+    }
+  };
+
+  const handleChange = async (e) => {
+    setDisabled(e.empty);
+    setError(e.error ? e.error.message : "");
+  };
 
   const cartStyle = {
     style: {
@@ -49,6 +74,10 @@ const StripeCheckout = () => {
 
   return (
     <React.Fragment>
+      <p className={succeeded ? "result-message" : "result-message hidden"}>
+        👏 Payment Successful 👏{" "}
+        <Link to="/user/history">See it in your purchase history</Link>
+      </p>
       <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
         <CardElement
           id="card-element"
@@ -63,6 +92,12 @@ const StripeCheckout = () => {
             {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
           </span>
         </button>
+        <br />
+        {error && (
+          <div className="card-error" role="alert">
+            ⛔ {error} ⛔
+          </div>
+        )}
       </form>
     </React.Fragment>
   );

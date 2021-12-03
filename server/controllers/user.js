@@ -47,7 +47,7 @@ exports.getUserCart = async (req, res) => {
   const user = await User.findOne({ email: req.user.email }).exec();
 
   let cart = await Cart.findOne({ orderedBy: user._id })
-    .populate("products.product", "_id cartTotal totalAfterDiscount")
+    .populate("products.product", "_id title cartTotal totalAfterDiscount")
     .exec();
 
   const { products, cartTotal, totalAfterDiscount } = cart;

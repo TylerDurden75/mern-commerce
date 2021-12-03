@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import {
   getUserCart,
   emptyUserCart,
@@ -8,7 +9,7 @@ import {
 } from "../functions/user";
 
 import { toast } from "react-toastify";
-import ReactQuill, { Quill } from "react-quill";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const Checkout = () => {
@@ -21,6 +22,7 @@ const Checkout = () => {
   const [discountError, setDiscountError] = useState("");
 
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
@@ -65,9 +67,17 @@ const Checkout = () => {
     applyCoupon(user.token, coupon).then((res) => {
       if (res.data) {
         setTotalAfterDiscount(res.data);
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: true,
+        });
       }
       if (res.data.err) {
         setDiscountError(res.data.err);
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
       }
     });
   };
@@ -148,6 +158,7 @@ const Checkout = () => {
             <button
               className="btn btn-primary"
               disabled={!addressSaved || !products.length}
+              onClick={() => navigate("/payment")}
             >
               Place Order
             </button>

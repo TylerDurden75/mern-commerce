@@ -14,6 +14,7 @@ import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
 
 import Header from "./components/nav/Header";
 import UserRoute from "./components/routes/UserRoute";
@@ -74,6 +75,7 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </React.Fragment>
   );

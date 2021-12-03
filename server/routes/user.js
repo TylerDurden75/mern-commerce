@@ -20,6 +20,6 @@ router.delete("/user/cart", authCheck, emptyUserCart);
 router.post("/user/address", authCheck, saveAddress);
 
 //coupon
-router.post("user/cart/coupon", autCheck, applyCouponToUserCart);
+router.post("/user/cart/coupon", authCheck, applyCouponToUserCart);
 
 module.exports = router;

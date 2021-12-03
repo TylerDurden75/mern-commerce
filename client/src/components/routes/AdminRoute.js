@@ -13,6 +13,7 @@ import SubUpdate from "../../pages/admin/sub/SubUpdate";
 import ProductCreate from "../../pages/admin/product/ProductCreate";
 import AllProducts from "../../pages/admin/product/AllProducts";
 import ProductUpdate from "../../pages/admin/product/ProductUpdate";
+import CreateCouponPage from "../../pages/admin/coupon/CreateCouponPage";
 
 const AdminRoute = ({ children, ...rest }) => {
   // let location = useLocation();
@@ -43,6 +44,7 @@ const AdminRoute = ({ children, ...rest }) => {
       <Route path="product" element={<ProductCreate />} />
       <Route path="products" element={<AllProducts />} />
       <Route path="product/:slug" element={<ProductUpdate />} />
+      <Route path="coupon" element={<CreateCouponPage />} />
     </Routes>
   ) : (
     <LoadingToRedirect />

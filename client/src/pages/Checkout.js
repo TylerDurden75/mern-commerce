@@ -20,7 +20,7 @@ const Checkout = () => {
   const saveAddressToDb = () => {};
 
   return (
-    <div className="row">
+    <div className="row mt-2">
       <div className="col-md-6">
         <h4>Delivery Address</h4>
         <br />

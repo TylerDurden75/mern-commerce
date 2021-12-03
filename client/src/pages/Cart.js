@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
+import { userCart } from "../functions/user";
 
 const Cart = () => {
   const { cart, user } = useSelector((state) => ({ ...state }));
@@ -17,8 +18,12 @@ const Cart = () => {
   };
 
   const saveOrderToDb = () => {
-    alert("save order to db");
-    navigate("/checkout");
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("Cart Post res", res);
+        if (res.data.ok) navigate("/checkout");
+      })
+      .catch((err) => console.log("Cart save err", err));
   };
 
   const showCartItems = () => (

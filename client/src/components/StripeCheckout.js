@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { createOrder, emptyUserCart } from "../functions/user";
 
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { createPaymentIntent } from "../functions/stripe";
@@ -54,6 +55,20 @@ const StripeCheckout = () => {
       setProcessing(false);
     } else {
       // console.log(JSON.stringify(payload, null, 4));
+      createOrder(payload, user.token).then((res) => {
+        if (res.data.ok) {
+          if (typeof window !== "undefined") localStorage.removeItem("cart");
+          dispatch({
+            type: "ADD_TO_CART",
+            payload: [],
+          });
+          dispatch({
+            type: "COUPON_APPLIED",
+            payload: false,
+          });
+          emptyUserCart(user.token);
+        }
+      });
       setError(null);
       setProcessing(false);
       setSucceeded(true);

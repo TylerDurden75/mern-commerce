@@ -95,7 +95,7 @@ const Cart = () => {
                 className="btn btn-sm btn-primary mt-2"
                 disabled={!cart.length}
               >
-                Proceed to checkout
+                💳 Proceed to checkout 💳
               </button>
               <br />
               <button
@@ -103,7 +103,7 @@ const Cart = () => {
                 className="btn btn-sm btn-warning mt-2"
                 disabled={!cart.length}
               >
-                Pay Cash on delivery
+                💸 Pay Cash on delivery 💸
               </button>
             </React.Fragment>
           ) : (

@@ -6,6 +6,7 @@ import {
   emptyUserCart,
   saveUserAddress,
   applyCoupon,
+  createCashOrderForUser,
 } from "../functions/user";
 
 import { toast } from "react-toastify";
@@ -23,7 +24,7 @@ const Checkout = () => {
 
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, cash } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     getUserCart(user.token).then((res) => {
@@ -117,6 +118,13 @@ const Checkout = () => {
     </React.Fragment>
   );
 
+  const createCashOrder = () => {
+    createCashOrderForUser(user.token).then((res) => {
+      console.log("User cash order", res);
+      //
+    });
+  };
+
   return (
     <div className="row mt-2 pl-2">
       <div className="col-md-6">
@@ -155,13 +163,23 @@ const Checkout = () => {
 
         <div className="row">
           <div className="col-md-6">
-            <button
-              className="btn btn-primary"
-              disabled={!addressSaved || !products.length}
-              onClick={() => navigate("/payment")}
-            >
-              Place Order
-            </button>
+            {cash ? (
+              <button
+                className="btn btn-primary"
+                disabled={!addressSaved || !products.length}
+                onClick={createCashOrder}
+              >
+                Place Order
+              </button>
+            ) : (
+              <button
+                className="btn btn-primary"
+                disabled={!addressSaved || !products.length}
+                onClick={() => navigate("/payment")}
+              >
+                Place Order
+              </button>
+            )}
           </div>
           <div className="col-md-6">
             <button

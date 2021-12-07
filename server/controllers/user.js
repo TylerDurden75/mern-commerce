@@ -156,7 +156,7 @@ exports.addToWishlist = async (req, res) => {
 };
 
 exports.createCashOrder = async (req, res) => {
-  const { cash } = req.body;
+  const { cash, couponApplied } = req.body;
 
   if (!cash) return res.status(400).send("Created cash order failed");
 
@@ -164,17 +164,26 @@ exports.createCashOrder = async (req, res) => {
 
   let userCart = await Cart.findOne({ orderedBy: user._id }).exec();
 
+  let finalAmount = 0;
+
+  if (couponApplied && userCart.totalAfterDiscount) {
+    finalAmount = userCart.totalAfterDiscount * 100;
+  } else {
+    finalAmount = userCart.cartTotal * 100;
+  }
+
   let newOrder = await new Order({
     products: userCart.products,
     paymentIntent: {
       id: uniqueid(),
-      amount: userCart.cartTotal,
+      amount: finalAmount,
       currency: "usd",
       payment_method_types: ["cash"],
       status: "Cash On Delivery",
       created: Date.now(),
     },
     orderedBy: user._id,
+    orderStatus: "Cash On Delivery",
   }).save();
 
   //decrement quantity and increment sold

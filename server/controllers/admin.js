@@ -1,4 +1,4 @@
-const Order = requier("../models/order.js");
+const Order = require("../models/order.js");
 
 exports.orders = async (req, res) => {
   let allOrders = await Order.find({})
@@ -16,8 +16,7 @@ exports.orderStatus = async (req, res) => {
     orderId,
     { orderStatus },
     { new: true }
-  )
-  .exec();
+  ).exec();
 
   res.json(updated);
 };

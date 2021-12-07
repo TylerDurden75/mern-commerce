@@ -9,6 +9,6 @@ const { orders, orderStatus } = require("../controllers/admin");
 
 /**Routes */
 router.get("/admin/orders", authCheck, adminCheck, orders);
-router.get("/admin/order-status", authCheck, adminCheck, orderStatus);
+router.put("/admin/order-status", authCheck, adminCheck, orderStatus);
 
 module.exports = router;

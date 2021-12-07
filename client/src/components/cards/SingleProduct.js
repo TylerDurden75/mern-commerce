@@ -1,10 +1,14 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import _ from "lodash";
 import ProductListItems from "./ProductListItems";
 import RatingModal from "../modal/RatingModal";
+import { addToWishlist } from "../../functions/user";
 
+import { toast } from "react-toastify";
 import { Card, Tabs, Tooltip } from "antd";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
@@ -24,6 +28,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAddToCard = () => {
     let cart = [];
@@ -48,6 +53,15 @@ const SingleProduct = ({ product, onStarClick, star }) => {
         payload: true,
       });
     }
+  };
+
+  const handleAddToWishlist = (e) => {
+    e.preventDefault();
+    addToWishlist(product._id, user.token).then((res) => {
+      // console.log("Added to wishlist", res.data);
+      toast.success("Added to Wishlist");
+      navigate("/user/wishlist");
+    });
   };
 
   return (
@@ -93,10 +107,10 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                 Cart
               </a>
             </Tooltip>,
-            <Link to="/">
+            <a onClick={handleAddToWishlist}>
               <HeartOutlined className="text-danger" /> <br />
               Add To Whislist
-            </Link>,
+            </a>,
             <RatingModal>
               <StarRatings
                 name={_id}

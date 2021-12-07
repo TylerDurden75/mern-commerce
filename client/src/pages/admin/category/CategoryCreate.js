@@ -35,7 +35,7 @@ const CategoryCreate = () => {
     setLoading(true);
     createCategory({ name }, user.token)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setLoading(false);
         setName("");
         toast.success(`"${res.data.name}" is created`);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createOrder, emptyUserCart } from "../functions/user";
@@ -12,7 +11,6 @@ import laptop from "../img/default-img.jpg";
 
 const StripeCheckout = () => {
   const dispatch = useDispatch();
-  let navigate = useNavigate();
   const { user, coupon } = useSelector((state) => ({ ...state }));
 
   const [succeeded, setSucceeded] = useState(false);
@@ -30,13 +28,13 @@ const StripeCheckout = () => {
 
   useEffect(() => {
     createPaymentIntent(user.token, coupon).then((res) => {
-      console.log("create payment intent", res.data);
+      // console.log("create payment intent", res.data);
       setClientSecret(res.data.clientSecret);
       setCartTotal(res.data.cartTotal);
       setTotalAfterDiscount(res.data.totalAfterDiscount);
       setPayable(res.data.payable);
     });
-  }, []);
+  }, [user.token, coupon]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

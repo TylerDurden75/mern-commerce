@@ -43,7 +43,7 @@ const RegisterComplete = () => {
         await updatePassword(user, password);
         const idTokenResult = await user.getIdTokenResult();
         //populate user to redux
-        console.log("user", user, "idTokenResult", idTokenResult);
+        // console.log("user", user, "idTokenResult", idTokenResult);
 
         createOrUpdateUser(idTokenResult.token)
           .then((res) => {

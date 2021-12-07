@@ -33,7 +33,7 @@ const Checkout = () => {
       setProducts(res.data.products);
       setCartTotal(res.data.cartTotal);
     });
-  }, []);
+  }, [user.token]);
 
   const saveAddressToDb = () => {
     saveUserAddress(user.token, address).then((res) => {
@@ -65,7 +65,7 @@ const Checkout = () => {
   };
 
   const applyDiscountCoupon = () => {
-    console.log("send coupon to backend", coupon);
+    // console.log("send coupon to backend", coupon);
     applyCoupon(user.token, coupon).then((res) => {
       if (res.data) {
         setTotalAfterDiscount(res.data);
@@ -121,7 +121,7 @@ const Checkout = () => {
 
   const createCashOrder = () => {
     createCashOrderForUser(user.token, cash, couponTrueOrFalse).then((res) => {
-      console.log("User cash order", res);
+      // console.log("User cash order", res);
       if (res.data.ok) {
         if (typeof window !== "undefined") {
           localStorage.removeItem("cart");

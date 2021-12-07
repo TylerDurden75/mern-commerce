@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import UserNav from "../../components/nav/UserNav";
@@ -14,11 +14,12 @@ const Wishlist = () => {
 
   useEffect(() => {
     showWishlist();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const showWishlist = () =>
     getWishlist(user.token).then((res) => {
-      console.log(res);
+      // console.log(res);
       setWishlist(res.data.wishlist);
     });
 

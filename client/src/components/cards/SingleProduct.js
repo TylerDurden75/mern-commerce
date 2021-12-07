@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import _ from "lodash";
 import ProductListItems from "./ProductListItems";
@@ -82,7 +81,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
         <Tabs type="card">
           <TabPane tab="Description" key="1">
-            {description && description}
+            {description}
           </TabPane>
           <TabPane tab="More" key="2">
             Call us on XXXX XXX XXX XXX to learn more about this product.
@@ -102,12 +101,12 @@ const SingleProduct = ({ product, onStarClick, star }) => {
         <Card
           actions={[
             <Tooltip title={tooltip}>
-              <a onClick={handleAddToCard}>
+              <a onClick={handleAddToCard} href={handleAddToCard}>
                 <ShoppingCartOutlined className="text-primary" /> <br /> Add to
                 Cart
               </a>
             </Tooltip>,
-            <a onClick={handleAddToWishlist}>
+            <a onClick={handleAddToWishlist} href={handleAddToWishlist}>
               <HeartOutlined className="text-danger" /> <br />
               Add To Whislist
             </a>,

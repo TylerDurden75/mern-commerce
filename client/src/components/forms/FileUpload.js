@@ -35,7 +35,7 @@ const FileUpload = ({ values, setValues, setLoading }) => {
                 }
               )
               .then((res) => {
-                console.log("Image Upload res data", res);
+                // console.log("Image Upload res data", res);
                 setLoading(false);
                 allUploadedFiles.push(res.data);
                 setValues({ ...values, image: allUploadedFiles });

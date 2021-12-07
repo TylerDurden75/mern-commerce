@@ -20,7 +20,7 @@ const Cart = () => {
   const saveOrderToDb = () => {
     userCart(cart, user.token)
       .then((res) => {
-        console.log("Cart Post res", res);
+        // console.log("Cart Post res", res);
         if (res.data.ok) navigate("/checkout");
       })
       .catch((err) => console.log("Cart save err", err));
@@ -33,7 +33,7 @@ const Cart = () => {
     });
     userCart(cart, user.token)
       .then((res) => {
-        console.log("Cart Post res", res);
+        // console.log("Cart Post res", res);
         if (res.data.ok) navigate("/checkout");
       })
       .catch((err) => console.log("Cart save err", err));

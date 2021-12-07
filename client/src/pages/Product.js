@@ -16,6 +16,7 @@ const Product = () => {
 
   useEffect(() => {
     showSingleProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const Product = () => {
   const onStarClick = (newRating, name) => {
     setStar(newRating);
     productStar(name, newRating, user.token).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       showSingleProduct(); /**If I want user to see updated in real time */
     });
   };

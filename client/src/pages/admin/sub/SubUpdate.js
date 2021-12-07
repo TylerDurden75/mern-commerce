@@ -38,7 +38,7 @@ const SubUpdate = () => {
     setLoading(true);
     updateSub(slug, { name, parent }, user.token)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setLoading(false);
         setName("");
         toast.success(`"${res.data.name}" is updated`);

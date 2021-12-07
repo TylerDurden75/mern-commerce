@@ -57,7 +57,7 @@ const ProductUpdate = () => {
       // prepare sub[id] => antd design select
       let arr = [];
       p.data.subs.map((s) => arr.push(s._id));
-      console.log("ARR", arr);
+      // console.log("ARR", arr);
       setArrayOfSubIds((prev) => arr); //require for antd design select to word
     });
   };

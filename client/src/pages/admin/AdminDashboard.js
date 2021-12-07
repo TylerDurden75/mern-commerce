@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import AdminNav from "../../components/nav/AdminNav";
 import { getOrders, changeStatus } from "../../functions/admin";
@@ -13,11 +13,12 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     showOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const showOrders = () =>
     getOrders(user.token).then((res) => {
-      console.log(JSON.stringify(res.data, null, 4));
+      // console.log(JSON.stringify(res.data, null, 4));
       setOrders(res.data);
     });
 

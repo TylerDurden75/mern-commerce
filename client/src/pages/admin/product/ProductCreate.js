@@ -48,7 +48,7 @@ const ProductCreate = () => {
     e.preventDefault();
     createProduct(values, user.token)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         window.alert(`"${res.data.title}" is created`);
         window.location.reload();
       })

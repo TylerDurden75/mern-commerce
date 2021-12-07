@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,6 +14,7 @@ const { Meta } = Card;
 const ProductCard = ({ product }) => {
   const { title, description, images, slug, price } = product;
 
+  // eslint-disable-next-line no-unused-vars
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 

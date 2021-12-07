@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";

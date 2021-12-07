@@ -26,6 +26,19 @@ const Cart = () => {
       .catch((err) => console.log("Cart save err", err));
   };
 
+  const saveCashOrderToDb = () => {
+    dispatch({
+      type: "CASH_ON_DELIVERY",
+      payload: true,
+    });
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("Cart Post res", res);
+        if (res.data.ok) navigate("/checkout");
+      })
+      .catch((err) => console.log("Cart save err", err));
+  };
+
   const showCartItems = () => (
     <table className="table table-bordered">
       <thead className="thead-light">
@@ -76,13 +89,23 @@ const Cart = () => {
           Total : <b>${getTotal()}</b>
           <hr />
           {user ? (
-            <button
-              onClick={saveOrderToDb}
-              className="btn btn-sm btn-primary mt-2"
-              disabled={!cart.length}
-            >
-              Proceed to checkout
-            </button>
+            <React.Fragment>
+              <button
+                onClick={saveOrderToDb}
+                className="btn btn-sm btn-primary mt-2"
+                disabled={!cart.length}
+              >
+                Proceed to checkout
+              </button>
+              <br />
+              <button
+                onClick={saveCashOrderToDb}
+                className="btn btn-sm btn-warning mt-2"
+                disabled={!cart.length}
+              >
+                Pay Cash on delivery
+              </button>
+            </React.Fragment>
           ) : (
             <button className="btn btn-sm btn-primary mt-2">
               <Link

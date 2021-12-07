@@ -31,11 +31,11 @@ const AdminDashboard = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-md-2 border-right">
           <AdminNav />
         </div>
 
-        <div className="col-md-10">
+        <div className="col-md-10 pt-2">
           <h4>Admin Dashboard</h4>
           <Orders orders={orders} handleStatusChange={handleStatusChange} />
         </div>

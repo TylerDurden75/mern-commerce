@@ -13,6 +13,7 @@ const {
   saveAddress,
   applyCouponToUserCart,
   createOrder,
+  createCashOrder,
   orders,
   wishlist,
   addToWishlist,
@@ -25,7 +26,8 @@ router.delete("/user/cart", authCheck, emptyUserCart);
 router.post("/user/address", authCheck, saveAddress);
 
 //order
-router.post("/user/order", authCheck, createOrder);
+router.post("/user/order", authCheck, createOrder); // using STRIPE
+router.post("/user/cash-order", authCheck, createCashOrder); // using Cash method
 router.get("/user/orders", authCheck, orders);
 
 //wishlist

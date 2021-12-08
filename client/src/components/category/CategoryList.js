@@ -8,10 +8,16 @@ const CategoryList = () => {
 
   useEffect(() => {
     setLoading(true);
+    let cancel = false;
     getCategories().then((c) => {
+      if (cancel) return;
       setCategories(c.data);
       setLoading(false);
     });
+
+    return () => {
+      cancel = true;
+    };
   }, []);
 
   const showCategories = () =>

@@ -4,27 +4,28 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import Home from "./pages/Home";
-import RegisterComplete from "./pages/auth/RegisterComplete";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import CategoryHome from "./pages/category/CategoryHome";
-import Shop from "./pages/Shop";
-import Cart from "./pages/Cart";
-import Product from "./pages/Product";
-import Checkout from "./pages/Checkout";
-import Payment from "./pages/Payment";
-
-import Header from "./components/nav/Header";
-import UserRoute from "./components/routes/UserRoute";
-import AdminRoute from "./components/routes/AdminRoute";
-import SideDrawer from "./components/drawer/SideDrawer";
-
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
-import SubHome from "./pages/sub/SubHome";
+import { LoadingOutlined } from "@ant-design/icons";
+
+const Login = lazy(() => import("./pages/auth/Login"));
+const Register = lazy(() => import("./pages/auth/Register"));
+const Home = lazy(() => import("./pages/Home"));
+const RegisterComplete = lazy(() => import("./pages/auth/RegisterComplete"));
+const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+const CategoryHome = lazy(() => import("./pages/category/CategoryHome"));
+const Shop = lazy(() => import("./pages/Shop"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Product = lazy(() => import("./pages/Product"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const Payment = lazy(() => import("./pages/Payment"));
+const SubHome = lazy(() => import("./pages/sub/SubHome"));
+
+const Header = lazy(() => import("./components/nav/Header"));
+const UserRoute = lazy(() => import("./components/routes/UserRoute"));
+const AdminRoute = lazy(() => import("./components/routes/AdminRoute"));
+const SideDrawer = lazy(() => import("./components/drawer/SideDrawer"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,15 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <React.Fragment>
+    <Suspense
+      fallback={
+        <div className="col text-center p-5">
+          __ React Redux E-C
+          <LoadingOutlined />
+          MMERCE__
+        </div>
+      }
+    >
       <Header />
       <SideDrawer />
       <ToastContainer />
@@ -77,7 +86,7 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment" element={<Payment />} />
       </Routes>
-    </React.Fragment>
+    </Suspense>
   );
 };
 

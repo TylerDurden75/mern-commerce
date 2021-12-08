@@ -59,6 +59,7 @@ const Shop = () => {
 
   useEffect(() => {
     showAllProducts();
+    let cancel = false;
     getCategories().then((res) => setCategories(res.data));
     getSubs().then((res) => setSubs(res.data));
   }, []);

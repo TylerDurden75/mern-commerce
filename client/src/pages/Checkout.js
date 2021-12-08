@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
@@ -33,7 +34,7 @@ const Checkout = () => {
       setProducts(res.data.products);
       setCartTotal(res.data.cartTotal);
     });
-  }, [user.token]);
+  }, []);
 
   const saveAddressToDb = () => {
     saveUserAddress(user.token, address).then((res) => {
@@ -87,7 +88,10 @@ const Checkout = () => {
   const showAddress = () => (
     <React.Fragment>
       <ReactQuill theme="snow" value={address} onChange={setAddress} />
-      <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
+      <button
+        className="btn btn-primary btn-raised mt-2"
+        onClick={saveAddressToDb}
+      >
         Save
       </button>
     </React.Fragment>
@@ -113,7 +117,10 @@ const Checkout = () => {
         type="text"
         className="form-control"
       />
-      <button onClick={applyDiscountCoupon} className="btn btn-primary mt-2">
+      <button
+        onClick={applyDiscountCoupon}
+        className="btn btn-warning btn-raised mt-2"
+      >
         Apply
       </button>
     </React.Fragment>
@@ -152,7 +159,8 @@ const Checkout = () => {
       <div className="col-md-6">
         <h4>Delivery Address</h4>
         <br />
-        <br />
+        <h6>Please write down your address 👇👇👇.</h6>
+
         {showAddress()}
         <hr />
         <h4>Got Coupon ?</h4>

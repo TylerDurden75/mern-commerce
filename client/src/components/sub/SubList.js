@@ -8,10 +8,15 @@ const SubList = () => {
 
   useEffect(() => {
     setLoading(true);
+    let cancel = false;
     getSubs().then((res) => {
+      if (cancel) return;
       setSubs(res.data);
       setLoading(false);
     });
+    return () => {
+      cancel = true;
+    };
   }, []);
 
   const showSubs = () =>

@@ -14,9 +14,10 @@ const BestSellers = () => {
     setLoading(true);
     let cancel = false;
     getProducts("sold", "desc", page).then((res) => {
-      if (cancel) return;
-      setProducts(res.data);
-      setLoading(false);
+      if (cancel) {
+        setProducts(res.data);
+        setLoading(false);
+      }
     });
 
     return () => {
@@ -27,8 +28,9 @@ const BestSellers = () => {
   useEffect(() => {
     let cancel = false;
     getProductsCount().then((res) => {
-      if (cancel) return;
-      setProductsCount(res.data);
+      if (cancel) {
+        setProductsCount(res.data);
+      }
     });
 
     return () => {

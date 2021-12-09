@@ -59,9 +59,23 @@ const Shop = () => {
 
   useEffect(() => {
     showAllProducts();
-    getCategories().then((res) => setCategories(res.data));
-    getSubs().then((res) => setSubs(res.data));
-  });
+    let cancel = false;
+    getCategories().then((res) => {
+      if (cancel) {
+        setCategories(res.data);
+      }
+    });
+    let unsubscribe = false;
+    getSubs().then((res) => {
+      if (unsubscribe) {
+        setSubs(res.data);
+      }
+    });
+    return () => {
+      cancel = true;
+      unsubscribe = true;
+    };
+  }, []);
 
   const fetchProducts = (arg) => {
     fetchProductsByFilter(arg).then((res) => {

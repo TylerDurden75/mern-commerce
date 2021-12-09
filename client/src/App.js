@@ -1,11 +1,12 @@
 import React, { useEffect, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { auth } from "./firebase";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { auth } from "./firebase";
-import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -21,6 +22,7 @@ const Product = lazy(() => import("./pages/Product"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Payment = lazy(() => import("./pages/Payment"));
 const SubHome = lazy(() => import("./pages/sub/SubHome"));
+const ErrorBoundary = lazy(() => import("./pages/error/ErrorBundary"));
 
 const Header = lazy(() => import("./components/nav/Header"));
 const UserRoute = lazy(() => import("./components/routes/UserRoute"));
@@ -85,6 +87,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="*" element={<ErrorBoundary />} />
       </Routes>
     </Suspense>
   );

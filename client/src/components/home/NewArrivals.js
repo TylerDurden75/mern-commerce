@@ -20,10 +20,9 @@ const NewArrivals = () => {
     setLoading(true);
     let cancel = false;
     getProducts("createdAt", "desc", page).then((res) => {
-      if (cancel) {
-        setProducts(res.data);
-        setLoading(false);
-      }
+      if (cancel) return;
+      setProducts(res.data);
+      setLoading(false);
     });
 
     return () => {
@@ -40,9 +39,8 @@ const NewArrivals = () => {
   useEffect(() => {
     let cancel = false;
     getProductsCount().then((res) => {
-      if (cancel) {
-        setProductsCount(res.data);
-      }
+      if (cancel) return;
+      setProductsCount(res.data);
     });
 
     return () => {

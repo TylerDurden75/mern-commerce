@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://mern-commerce-webapp.herokuapp.com",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@david.kucsai/react-pdf-table": "^0.3.0",

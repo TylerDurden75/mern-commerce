@@ -59,8 +59,12 @@ const Shop = () => {
 
   useEffect(() => {
     showAllProducts();
+    let abortController = new AbortController();
     getCategories().then((res) => setCategories(res.data));
     getSubs().then((res) => setSubs(res.data));
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   const fetchProducts = (arg) => {

@@ -204,8 +204,8 @@ const handleCategory = async (req, res, category) => {
   } catch (err) {}
 };
 
-const handleStar = (req, res, stars) => {
-  Product.aggregate([
+const handleStar = async (req, res, stars) => {
+  await Product.aggregate([
     {
       $project: {
         document: "$$ROOT",

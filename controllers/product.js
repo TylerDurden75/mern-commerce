@@ -222,7 +222,7 @@ const handleStar = async (req, res, stars) => {
       Product.find({ _id: aggregates })
         .populate("category", "_id name")
         .populate("subs", "_id name")
-        .populate("postedBy", "_id name")
+        .populate({ path: "ratings", populate: { path: "postedBy" } })
         .exec((error, products) => {
           if (error) console.log("Product aggregate error", error);
           res.json(products);

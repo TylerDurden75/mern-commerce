@@ -18,17 +18,10 @@ const NewArrivals = () => {
   /**GOOD METHOD clean up on useEffect */
   useEffect(() => {
     setLoading(true);
-    let cancel = false;
     getProducts("createdAt", "desc", page).then((res) => {
-      if (cancel) {
-        setProducts(res.data);
-        setLoading(false);
-      }
+      setProducts(res.data);
+      setLoading(false);
     });
-
-    return () => {
-      cancel = true;
-    };
   }, [page]);
 
   /**Wrong method => memory leak */
@@ -38,16 +31,7 @@ const NewArrivals = () => {
 
   /**GOOD METHOD clean up on useEffect */
   useEffect(() => {
-    let cancel = false;
-    getProductsCount().then((res) => {
-      if (cancel) {
-        return setProductsCount(res.data);
-      }
-    });
-
-    return () => {
-      cancel = true;
-    };
+    getProductsCount().then((res) => setProductsCount(res.data));
   }, []);
 
   // const showAllProducts = () => {

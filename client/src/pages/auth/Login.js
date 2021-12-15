@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("raytibo.j@gmail.com");
+  const [email, setEmail] = useState("admin.mern@protonmail.com");
   const [password, setPassword] = useState("12341234");
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
